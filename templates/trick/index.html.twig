@@ -9,11 +9,12 @@
 </style>
 
 <div class="example-wrapper">
+    <h1>Hello {{ controller_name }}! ✅</h1>
+
+    This friendly message is coming from:
     <ul>
-        <li>Id du trick: {{ trick.id }}</li>
-        <li>Titre: {{ trick.title }}</li>
-        <li>description: {{ trick.description }}</li>
-        <li>date de modification: {{ trick.modificationdate |date("m/d/Y")}}</li>
+        <li>Your controller at <code><a href="{{ 'C:/Users/Dew/Desktop/symfony/sym-tricks/sym-tricks/src/Controller/TrickController.php'|file_link(0) }}">src/Controller/TrickController.php</a></code></li>
+        <li>Your template at <code><a href="{{ 'C:/Users/Dew/Desktop/symfony/sym-tricks/sym-tricks/templates/trick/index.html.twig'|file_link(0) }}">templates/trick/index.html.twig</a></code></li>
     </ul>
 </div>
 {% endblock %}
