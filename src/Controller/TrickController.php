@@ -25,15 +25,18 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/trick/new", name="trick_new")
+     * @Route("/trick/{slug}/edit", name="trick_edit")
      * 
      * @return Response
      */
 
-    public function new(Request $request)
+    public function trickManagement(Request $request, $slug = false, TrickRepository $repo)
     {
-        $trick = new Trick();
-
-
+        if($slug !== false) {
+            $trick = $repo->findOneBySlug($slug);
+        } else {
+            $trick = new Trick();
+        }
         $form = $this->createForm(TrickType::class, $trick);
 
         $form->handleRequest($request);
@@ -43,6 +46,8 @@ class TrickController extends AbstractController
             $manager->persist($trick);
 
             $manager->flush();
+
+            return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug() ]);
         }
 
         return $this->render('trick/new.html.twig', [
@@ -57,7 +62,7 @@ class TrickController extends AbstractController
      */
     public function show($slug, TrickRepository $repo)
     {
-        $trick =$repo->findOneBySlug($slug);
+        $trick = $repo->findOneBySlug($slug);
         return $this->render('trick/show.html.twig', [
             'trick' => $trick,
         ]);
