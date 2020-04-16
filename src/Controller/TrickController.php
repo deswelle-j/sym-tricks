@@ -14,11 +14,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class TrickController extends AbstractController
 {
     /**
-     * @Route("/trick", name="trick")
+     * @Route("/", name="home")
      */
-    public function index()
+    public function home()
     {
-        return $this->render('trick/index.html.twig', [
+        return $this->render('trick/home.html.twig', [
             'controller_name' => 'TrickController',
         ]);
     }
