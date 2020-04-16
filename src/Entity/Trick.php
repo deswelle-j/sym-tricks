@@ -39,6 +39,12 @@ class Trick
     private $slug;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Group", inversedBy="tricks")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $groupTrick;
+
+    /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
@@ -98,6 +104,18 @@ class Trick
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getGroupTrick(): ?Group
+    {
+        return $this->groupTrick;
+    }
+
+    public function setGroupTrick(?Group $groupTrick): self
+    {
+        $this->groupTrick = $groupTrick;
 
         return $this;
     }
