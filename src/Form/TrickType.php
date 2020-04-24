@@ -16,7 +16,6 @@ class TrickType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('modification_date')
             ->add('groupTrick', EntityType::class, [
                 'class' => Group::Class,
                 'choice_label' => 'name'
