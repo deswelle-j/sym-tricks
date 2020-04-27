@@ -2,12 +2,14 @@
 
 namespace App\Form;
 
-use App\Entity\Trick;
 use App\Entity\Group;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Trick;
+use App\Form\ImageType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class TrickType extends AbstractType
 {
@@ -19,6 +21,10 @@ class TrickType extends AbstractType
             ->add('groupTrick', EntityType::class, [
                 'class' => Group::Class,
                 'choice_label' => 'name'
+            ])
+            ->add('images', CollectionType::class, [
+                'entry_type' => ImageType::class,
+                'allow_add' => true
             ])
         ;
     }
