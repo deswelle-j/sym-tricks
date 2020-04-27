@@ -31,6 +31,12 @@ class Image
      */
     private $caption;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="images")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $tricks;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,6 +74,18 @@ class Image
     public function setCaption(?string $caption): self
     {
         $this->caption = $caption;
+
+        return $this;
+    }
+
+    public function getTricks(): ?Trick
+    {
+        return $this->tricks;
+    }
+
+    public function setTricks(?Trick $tricks): self
+    {
+        $this->tricks = $tricks;
 
         return $this;
     }
