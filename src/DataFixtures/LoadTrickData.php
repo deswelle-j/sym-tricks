@@ -36,7 +36,6 @@ class LoadTrickData extends Fixture
             $group = $this->getReference($trick['group']);
             $trickObject->setTitle($trick["title"])
             ->setDescription($trick["description"])
-            ->setModificationDate($date)
             ->setGroupTrick($group);
 
             $manager->persist($trickObject);
