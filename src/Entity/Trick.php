@@ -48,7 +48,7 @@ class Trick
     private $groupTrick;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="tricks", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="trick", orphanRemoval=true)
      */
     private $images;
 
@@ -154,7 +154,7 @@ class Trick
     {
         if (!$this->images->contains($image)) {
             $this->images[] = $image;
-            $image->setTricks($this);
+            $image->setTrick($this);
         }
 
         return $this;
