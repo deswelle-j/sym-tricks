@@ -3,9 +3,14 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ImageRepository")
+ * @UniqueEntity(
+ * fields={"title"},
+ * message="Ce titre est déjà présent dans la base"
+ * )
  */
 class Image
 {
