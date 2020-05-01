@@ -41,8 +41,13 @@ class TrickController extends AbstractController
 
         $form->handleRequest($request);
 
+        $manager = $this->getDoctrine()->getManager();
         if($form->isSubmitted() && $form->isValid()) {
-            $manager = $this->getDoctrine()->getManager();
+            foreach($trick->getImages() as $image) {
+                $image->setTrick($trick);
+                $manager->persist($image);
+            }
+            
             $manager->persist($trick);
 
             $manager->flush();
@@ -50,7 +55,7 @@ class TrickController extends AbstractController
             return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug() ]);
         }
 
-        return $this->render('trick/new.html.twig', [
+        return $this->render('trick/form.html.twig', [
             'form' => $form->createView(),
         ]);
     }

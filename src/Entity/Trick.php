@@ -2,12 +2,20 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use DateTime;
 use App\Service\Slugify;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TrickRepository")
  * @ORM\HasLifecycleCallbacks
+ * @UniqueEntity(
+ * fields={"title"},
+ * message="Ce titre est déjà présent dans la base"
+ * )
  */
 class Trick
 {
@@ -45,6 +53,16 @@ class Trick
     private $groupTrick;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="trick", orphanRemoval=true)
+     */
+    private $images;
+
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+    }
+
+    /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
@@ -53,6 +71,15 @@ class Trick
             $slugify = new Slugify();
             $this->slug = $slugify->slugify($this->title);
         }
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function initializeModificationDate() {
+        $date = new DateTime('NOW');
+        $this->modification_date = $date;
     }
 
     public function getId(): ?int
@@ -116,6 +143,37 @@ class Trick
     public function setGroupTrick(?Group $groupTrick): self
     {
         $this->groupTrick = $groupTrick;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Image[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setTrick($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->contains($image)) {
+            $this->images->removeElement($image);
+            // set the owning side to null (unless already changed)
+            if ($image->getTricks() === $this) {
+                $image->setTricks(null);
+            }
+        }
 
         return $this;
     }

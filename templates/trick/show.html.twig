@@ -15,5 +15,15 @@
         <li>description: {{ trick.description }}</li>
         <li>date de modification: {{ trick.modificationdate |date("m/d/Y")}}</li>
     </ul>
+
+    <ul>
+        {% for image in trick.images %}
+            <li>
+                <img class="d-block w-100" src="{{image.url}}" alt="First slide">
+            </li>
+
+        {% endfor %}                
+        </div>
+    <ul>
 </div>
 {% endblock %}
