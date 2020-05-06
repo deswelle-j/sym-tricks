@@ -42,12 +42,7 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         $manager = $this->getDoctrine()->getManager();
-        if($form->isSubmitted() && $form->isValid()) {
-            foreach($trick->getImages() as $image) {
-                $image->setTrick($trick);
-                $manager->persist($image);
-            }
-            
+        if($form->isSubmitted() && $form->isValid()) {           
             $manager->persist($trick);
 
             $manager->flush();
