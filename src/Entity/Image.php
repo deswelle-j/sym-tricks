@@ -7,6 +7,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ImageRepository")
+ * @ORM\HasLifecycleCallbacks
  * @UniqueEntity(
  * fields={"title"},
  * message="Ce titre est déjà présent dans la base"
@@ -32,7 +33,7 @@ class Image
     private $url;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text", nullable=true, nullable=true)
      */
     private $caption;
 
@@ -41,6 +42,22 @@ class Image
      * @ORM\JoinColumn(nullable=false)
      */
     private $trick;
+
+    /**
+    * @var UploadedFile
+    */
+    private $file;
+    
+  
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+    }
 
     public function getId(): ?int
     {

@@ -6,6 +6,7 @@ use App\Entity\Image;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class ImageType extends AbstractType
 {
@@ -13,7 +14,9 @@ class ImageType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('url')
+            ->add('file', FileType::class, [
+                'mapped' => false
+            ])
             ->add('caption')
         ;
     }

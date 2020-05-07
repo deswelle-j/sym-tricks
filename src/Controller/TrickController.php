@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManager;
 use App\Repository\TrickRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -42,7 +43,18 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         $manager = $this->getDoctrine()->getManager();
-        if($form->isSubmitted() && $form->isValid()) {           
+
+        if($form->isSubmitted() && $form->isValid()) {
+            foreach($form->get('images') as $image){
+                
+                // /** @var UploadedFile $file */
+                // $file = $image->getFile(); // This is the file
+                /** @var UploadedFile $file */
+                $file = $image->get('file')->getData();
+                
+                dd($file);
+            }
+
             $manager->persist($trick);
 
             $manager->flush();

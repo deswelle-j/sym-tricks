@@ -53,7 +53,7 @@ class Trick
     private $groupTrick;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="trick", orphanRemoval=true ,cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="trick", orphanRemoval=true ,cascade={"persist", "remove"})
      */
     private $images;
 
