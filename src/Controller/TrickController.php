@@ -46,13 +46,18 @@ class TrickController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
             foreach($form->get('images') as $image){
-                
-                // /** @var UploadedFile $file */
-                // $file = $image->getFile(); // This is the file
                 /** @var UploadedFile $file */
                 $file = $image->get('file')->getData();
-                
-                dd($file);
+
+                $destination = $this->getParameter('kernel.project_dir').'/public/uploads';
+
+                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename.'-'.uniqid().'.'.$file->guessExtension();
+
+                $file->move(
+                    $destination,
+                    $newFilename
+                );
             }
 
             $manager->persist($trick);
