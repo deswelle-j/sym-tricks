@@ -53,11 +53,18 @@ class TrickController extends AbstractController
 
                 $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                 $newFilename = $originalFilename.'-'.uniqid().'.'.$file->guessExtension();
+ 
+                // Impossible d'accèder à la fonction pour setter l'url car
+                // nous sommes dans le form et non dans l'entity
+                $image->getUrl()->setData($newFilename);
 
+ 
                 $file->move(
                     $destination,
                     $newFilename
                 );
+
+                
             }
 
             $manager->persist($trick);
