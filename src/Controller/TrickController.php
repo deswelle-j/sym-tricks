@@ -46,6 +46,7 @@ class TrickController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
             foreach($form->get('images') as $image){
+                
                 /** @var UploadedFile $file */
                 $file = $image->get('file')->getData();
 
@@ -54,10 +55,9 @@ class TrickController extends AbstractController
                 $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                 $newFilename = $originalFilename.'-'.uniqid().'.'.$file->guessExtension();
  
-                // Impossible d'accèder à la fonction pour setter l'url car
-                // nous sommes dans le form et non dans l'entity
-                $image->getUrl()->setData($newFilename);
+                $imageEntity = $image->getData();
 
+                $imageEntity->setUrl($newFilename);
  
                 $file->move(
                     $destination,
