@@ -50,7 +50,7 @@ class TrickController extends AbstractController
                 /** @var UploadedFile $file */
                 $file = $image->get('file')->getData();
 
-                $destination = $this->getParameter('kernel.project_dir').'/public/uploads';
+                $destination = $this->getParameter('images_directory');
 
                 $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                 $newFilename = $originalFilename.'-'.uniqid().'.'.$file->guessExtension();

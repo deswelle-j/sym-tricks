@@ -19,7 +19,8 @@ class ImageType extends AbstractType
         $builder
             ->add('title')
             ->add('file', FileType::class, [
-                'mapped' => false
+                'mapped' => false,
+                'required' =>false
             ])
             ->add('caption')
         ;
