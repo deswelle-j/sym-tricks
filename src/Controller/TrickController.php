@@ -49,7 +49,6 @@ class TrickController extends AbstractController
                 
                 /** @var UploadedFile $file */
                 if ( $image->get('file')->getData() ) {
-                    dd($image);
                     $file = $image->get('file')->getData();
     
                     $destination = $this->getParameter('images_directory');
@@ -65,9 +64,7 @@ class TrickController extends AbstractController
                         $destination,
                         $newFilename
                     );
-                }
-
-                
+                }     
             }
 
             $manager->persist($trick);
