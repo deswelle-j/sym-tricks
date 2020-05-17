@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class ImageType extends AbstractType
 {
@@ -18,7 +18,9 @@ class ImageType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('url')
+            ->add('url', HiddenType::class, [
+                'required' =>false
+            ])
             ->add('file', FileType::class, [
                 'mapped' => false,
                 'required' =>false

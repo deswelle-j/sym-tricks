@@ -20,7 +20,10 @@
                 {{ form_errors(form.file) }}
                 {{ form_widget(form.file) }}
                 </div>
+                <div>
                 <img src="{{ asset('/uploads/' ~ form.url.vars.value ) }}" alt="" width="300">
+                {{ form_widget(form.url, { 'attr': {'visibility': 'hidden'} }) }}
+                </div>
                 <div class="col">
                     {{ form_widget(form.title) }}
                     {{ form_errors(form.title) }}
