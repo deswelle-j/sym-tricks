@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Trick;
 use App\Form\TrickType;
+use App\Service\UploaderHelper;
 use Doctrine\ORM\EntityManager;
 use App\Repository\TrickRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,7 +32,7 @@ class TrickController extends AbstractController
      * @return Response
      */
 
-    public function trickManagement(Request $request, $slug = false, TrickRepository $repo)
+    public function trickManagement(Request $request, $slug = false, TrickRepository $repo, UploaderHelper $uploaderHelper)
     {
         if($slug !== false) {
             $trick = $repo->findOneBySlug($slug);
@@ -48,22 +49,12 @@ class TrickController extends AbstractController
             foreach($form->get('images') as $image){
                 
                 /** @var UploadedFile $file */
-                if ( $image->get('file')->getData() ) {
-                    $file = $image->get('file')->getData();
-    
-                    $destination = $this->getParameter('images_directory');
-    
-                    $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-                    $newFilename = $originalFilename.'-'.uniqid().'.'.$file->guessExtension();
-     
+                $file = $image->get('file')->getData();
+                if ( $file ) {
+                    $newFilename = $uploaderHelper->uploadTrickImage($file);
+
                     $imageEntity = $image->getData();
-    
                     $imageEntity->setUrl($newFilename);
-     
-                    $file->move(
-                        $destination,
-                        $newFilename
-                    );
                 }     
             }
 
