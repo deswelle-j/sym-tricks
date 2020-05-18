@@ -18,7 +18,7 @@ class UploaderHelper
     {
         $destination = $this->uploadsPath;
         $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-        $newFilename = $originalFilename.'-'.uniqid().'.'.$uploadedFile->guessExtension();
+        $newFilename = Slugify::slugify($originalFilename) .'-'.uniqid().'.'.$uploadedFile->guessExtension();
 
         $uploadedFile->move(
             $destination,
