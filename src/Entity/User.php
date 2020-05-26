@@ -35,7 +35,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $password;
+    private $hash;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -76,14 +76,14 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPassword(): ?string
+    public function getHash(): ?string
     {
-        return $this->password;
+        return $this->hash;
     }
 
-    public function setPassword(string $password): self
+    public function setHash(string $hash): self
     {
-        $this->password = $password;
+        $this->hash = $hash;
 
         return $this;
     }
@@ -111,4 +111,19 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+    }
+
+    public function getPassword()
+    {
+        return $this->hash;
+    }
+
+    public function getSalt() {}
+
+    public function eraseCredentials() {}
+    
 }
