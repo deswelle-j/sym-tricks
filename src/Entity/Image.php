@@ -102,7 +102,7 @@ class Image
 
     public function getTrick(): ?Trick
     {
-        return $this->tricks;
+        return $this->trick;
     }
 
     public function setTrick(?Trick $trick): self

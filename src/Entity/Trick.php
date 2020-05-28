@@ -170,8 +170,8 @@ class Trick
         if ($this->images->contains($image)) {
             $this->images->removeElement($image);
             // set the owning side to null (unless already changed)
-            if ($image->getTricks() === $this) {
-                $image->setTricks(null);
+            if ($image->getTrick() === $this) {
+                $image->setTrick(null);
             }
         }
 
