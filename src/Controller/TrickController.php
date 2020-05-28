@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Trick;
 use App\Form\TrickType;
+use App\Service\UploaderHelper;
 use Doctrine\ORM\EntityManager;
 use App\Repository\TrickRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -30,7 +32,7 @@ class TrickController extends AbstractController
      * @return Response
      */
 
-    public function trickManagement(Request $request, $slug = false, TrickRepository $repo)
+    public function trickManagement(Request $request, $slug = false, TrickRepository $repo, UploaderHelper $uploaderHelper)
     {
         if($slug !== false) {
             $trick = $repo->findOneBySlug($slug);
@@ -42,7 +44,20 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         $manager = $this->getDoctrine()->getManager();
-        if($form->isSubmitted() && $form->isValid()) {           
+
+        if($form->isSubmitted() && $form->isValid()) {
+            foreach($form->get('images') as $image){
+                
+                /** @var UploadedFile $file */
+                $file = $image->get('file')->getData();
+                if ( $file ) {
+                    $newFilename = $uploaderHelper->uploadTrickImage($file);
+
+                    $imageEntity = $image->getData();
+                    $imageEntity->setUrl($newFilename);
+                }     
+            }
+
             $manager->persist($trick);
 
             $manager->flush();

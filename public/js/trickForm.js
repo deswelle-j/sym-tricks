@@ -11,9 +11,13 @@ $('#add-image').click(function(){
 });
 
 function handleDelete() {
-    $('button[data-action="delete"').click(function(){
-        const target = this.dataset.target
-        $(target).remove();
+    $('button[data-action="delete"').click(function(e){
+        e.preventDefault()
+
+        if(confirm("Voulez-vous supprimer cette image ?")) {
+            const target = this.dataset.target
+            $(target).remove();
+        }
     })
 }
 

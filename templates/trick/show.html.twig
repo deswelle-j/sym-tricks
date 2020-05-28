@@ -19,7 +19,7 @@
     <ul>
         {% for image in trick.images %}
             <li>
-                <img class="d-block w-100" src="{{image.url}}" alt="First slide">
+                <img class="d-block w-100" src="{{asset('/uploads/' ~ image.url)}}" alt="First slide">
             </li>
 
         {% endfor %}                
