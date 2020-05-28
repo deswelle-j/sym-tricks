@@ -32,11 +32,6 @@ class UploaderHelper
     public function deleteFile(string $path)
     {
         $filesystem = new Filesystem();
-
-        try {
-            $filesystem->mkdir($uploadsPath.'/'.$path);
-        } catch (IOExceptionInterface $e) {
-            echo "Une erreur est arrivée pour ". $e->getPath();
-        }
+        $filesystem->remove($this->uploadsPath.'/'.$path);   
     }
 }
