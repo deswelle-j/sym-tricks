@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
@@ -26,5 +27,11 @@ class UploaderHelper
         );
 
         return $newFilename;
+    }
+
+    public function deleteFile(string $path)
+    {
+        $filesystem = new Filesystem();
+        $filesystem->remove($this->uploadsPath.'/'.$path);   
     }
 }
