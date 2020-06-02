@@ -21,4 +21,12 @@ class UserController extends AbstractController
             'username' => $username
         ]);
     }
+
+    /**
+     * @Route("/logout", name="user_logout")
+     */
+    public function logout()
+    {
+
+    }
 }
