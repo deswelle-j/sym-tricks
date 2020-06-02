@@ -51,6 +51,11 @@ class UserController extends AbstractController
             
             $manager->persist($form);
             $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre compte a bien été créé'
+            );
         }
 
         return $this->render('user/registration.html.twig', [
