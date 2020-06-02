@@ -46,7 +46,7 @@ class UserController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             $manager = $this->getDoctrine()->getManager();
 
-            $hash = $encoder->encoderPassword($user, $user->getHash());
+            $hash = $encoder->encodePassword($user, $user->getHash());
             $user->setHash($hash);
             
             $manager->persist($form);
