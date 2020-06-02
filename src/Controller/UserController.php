@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Form\RegistrationType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -28,5 +30,19 @@ class UserController extends AbstractController
     public function logout()
     {
 
+    }
+
+    /**
+     * @Route("/register", name="user-registration")
+     */
+    public function register()
+    {
+        $user = new User();
+
+        $form = $this->createForm(RegistrationType::class, $user);
+
+        return $this->render('user/registration.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }
