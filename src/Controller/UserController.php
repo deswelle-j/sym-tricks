@@ -35,7 +35,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/register", name="user-registration")
+     * @Route("/register", name="user_registration")
      */
     public function register(Request $request, UserPasswordEncoderInterface $encoder)
     {
@@ -43,15 +43,22 @@ class UserController extends AbstractController
 
         $form = $this->createForm(RegistrationType::class, $user);
 
+        $form->handleRequest($request);
+
         if($form->isSubmitted() && $form->isValid()) {
-            $manager = $this->getDoctrine()->getManager();
+            
 
             $hash = $encoder->encodePassword($user, $user->getHash());
-            $user->setHash($hash);
             
-            $manager->persist($form);
-            $manager->flush();
+            $user->setHash($hash);
 
+            $user->setActive(false);
+            $user->setToken(bin2hex(random_bytes(60)));
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($user);
+            $manager->flush();
+            
             $this->addFlash(
                 'success',
                 'Votre compte a bien été créé'
