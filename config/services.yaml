@@ -30,9 +30,6 @@ services:
     App\EventListener\DeleteImageListener:
         tags: 
             - { name : doctrine.event_listener , event: preRemove }
-    
-    App\EventListener\SendMailListener:
+    App\EventListener\UserMailingListener:
         tags:
-            - { name : kernel.event_listener , event: user.sendMail, method: sendToken }
-
-    
+            - { name : kernel.event_listener , event: user.register ,  method: OnAfterUserIsCreated}
