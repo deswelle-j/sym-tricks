@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Event\UserEvent;
 use App\Form\RegistrationType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -37,7 +39,7 @@ class UserController extends AbstractController
     /**
      * @Route("/register", name="user_registration")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $encoder)
+    public function register(Request $request, UserPasswordEncoderInterface $encoder, EventDispatcherInterface $dispatcher)
     {
         $user = new User();
 
@@ -47,7 +49,6 @@ class UserController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
             
-
             $hash = $encoder->encodePassword($user, $user->getHash());
             
             $user->setHash($hash);
@@ -58,6 +59,10 @@ class UserController extends AbstractController
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($user);
             $manager->flush();
+
+            $userEvent = new UserEvent($user);
+
+            $dispatcher->dispatch($userEvent, UserEvent::NAME);
             
             $this->addFlash(
                 'success',
