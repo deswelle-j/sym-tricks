@@ -35,6 +35,14 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *  min = 8
+     * )
+     * @Assert\Regex(
+     * pattern="/(?=.*\d)(?=.*[a-zA-Z])/",
+     * match=true,
+     * )
      */
     private $hash;
 
