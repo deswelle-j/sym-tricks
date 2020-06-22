@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Event\UserEvent;
 use App\Form\RegistrationType;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -74,4 +75,23 @@ class UserController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/verify/{username}/token={token}", name="user_token_verify")
+     */
+    public function tokenVerify($token, $username, UserRepository $repo)
+    {
+        $user = $repo->findOneByUsername($username);
+        if($user->getUsername() == $username && $user->getToken() == $token) {
+            $user->setActive(true);
+            $user->setToken("");
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($user);
+            $manager->flush();
+
+            return $this->redirectToRoute('home');
+        }
+    }
+
 }
