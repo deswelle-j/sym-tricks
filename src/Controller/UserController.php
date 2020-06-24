@@ -10,33 +10,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends AbstractController
 {
-    /**
-     * @Route("/login", name="user_login")
-     */
-    public function login(AuthenticationUtils $utils)
-    {
-        $error = $utils->getLastAuthenticationError();
-        $username = $utils->getLastUsername();
-
-        return $this->render('user/login.html.twig', [
-            'hasError' => $error !== null,
-            'username' => $username
-        ]);
-    }
-
-    /**
-     * @Route("/logout", name="user_logout")
-     */
-    public function logout()
-    {
-
-    }
-
     /**
      * @Route("/register", name="user_registration")
      */

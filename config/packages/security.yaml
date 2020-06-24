@@ -16,13 +16,12 @@ security:
             anonymous: lazy
             provider: in_database
 
-            form_login:
-                login_path: user_login
-                check_path: user_login
-
             logout:
-                path: user_logout
-                target: user_login
+                path: app_logout
+                target: home
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
