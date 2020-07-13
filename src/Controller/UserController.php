@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Event\UserEvent;
 use App\Form\RegistrationType;
 use App\Repository\UserRepository;
+use App\Service\UserVerify;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -56,19 +57,23 @@ class UserController extends AbstractController
     /**
      * @Route("/verify/{username}/token={token}", name="user_token_verify")
      */
-    public function tokenVerify($token, $username, UserRepository $repo)
+    public function userVerify($token, $username, UserRepository $repo, UserVerify $userVerify)
     {
         $user = $repo->findOneByUsername($username);
-        if($user->getUsername() == $username && $user->getToken() == $token) {
-            $user->setActive(true);
-            $user->setToken("");
 
-            $manager = $this->getDoctrine()->getManager();
-            $manager->persist($user);
-            $manager->flush();
-
+        if ($userVerify->tokenVerify($username, $user, $token) ) {
+            $this->addFlash(
+                'success',
+                'Votre compte a bien été validé'
+            );
             return $this->redirectToRoute('home');
+        } else {
+            return $this->redirectToRoute('home');
+
         }
+        
     }
+
+
 
 }
