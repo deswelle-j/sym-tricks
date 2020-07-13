@@ -32,5 +32,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+        - { path: '^/trick/edit', roles: [IS_AUTHENTICATED_FULLY, ROLE_USER] }
+        - { path: '^/trick/new', roles: [IS_AUTHENTICATED_FULLY, ROLE_USER] }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
