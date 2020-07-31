@@ -21,6 +21,7 @@
         "symfony/orm-pack": "*",
         "symfony/phpunit-bridge": "^5.0",
         "symfony/process": "4.4.*",
+        "symfony/security": "4.4.*",
         "symfony/security-bundle": "4.4.*",
         "symfony/serializer-pack": "*",
         "symfony/translation": "4.4.*",
