@@ -25,5 +25,21 @@
         {% endfor %}                
         </div>
     <ul>
+
+    {% if trick.comments|length > 0 %}
+        <h2>Commentaire</h2>
+
+        {% for comment in trick.comments %}
+            <div>
+                <strong>{{ comment.author.username }}</strong> a dit :
+                <blockquote>
+                    {{ comment.content }}
+                </blockquote>
+            </div>
+
+        {% endfor %}
+    {% else %}
+
+    {% endif %}
 </div>
 {% endblock %}
