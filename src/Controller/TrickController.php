@@ -27,7 +27,7 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/trick/new", name="trick_new")
-     * @Route("/trick/{slug}/edit", name="trick_edit")
+     * @Route("/trick/edit/{slug}", name="trick_edit")
      * 
      * @return Response
      */
