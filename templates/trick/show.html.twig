@@ -41,5 +41,16 @@
     {% else %}
 
     {% endif %}
-</div>
+
+    {% if is_granted('ROLE_USER') %}
+    <div class="example-wrapper">
+        <h1>Laissez nous un commentaire</h1>
+
+        {{ form_start(form) }}
+        {{ form_widget(form)}}
+        <button type="submit">Envoyer</button>
+        {{ form_end(form)}}
+        </div>
+    </div>
+    {% endif %}
 {% endblock %}
