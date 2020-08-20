@@ -72,8 +72,9 @@ class Trick
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
-    public function initialzeSlug() {
-        if(empty($this->slug)) {
+    public function initialzeSlug()
+    {
+        if (empty($this->slug)) {
             $slugify = new Slugify();
             $this->slug = $slugify->slugify($this->title);
         }
@@ -83,7 +84,8 @@ class Trick
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
-    public function initializeModificationDate() {
+    public function initializeModificationDate()
+    {
         $date = new DateTime('NOW');
         $this->modification_date = $date;
     }

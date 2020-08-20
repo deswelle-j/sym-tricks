@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
@@ -43,7 +45,8 @@ class Comment
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
-    public function initializeModificationDate() {
+    public function initializeModificationDate()
+    {
         $date = new DateTime('NOW');
         $this->creationDate = $date;
     }
@@ -99,5 +102,18 @@ class Comment
         $this->trick = $trick;
 
         return $this;
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context, $payload)
+    {
+        $contentStriped = strip_tags($this->getContent());
+        if ($this->getContent() !== $contentStriped) {
+            $context->buildViolation('Le champ ne doit pas contenir de HTML')
+                ->atPath('content')
+                ->addViolation();
+        }
     }
 }

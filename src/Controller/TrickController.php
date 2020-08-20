@@ -30,13 +30,13 @@ class TrickController extends AbstractController
     /**
      * @Route("/trick/new", name="trick_new")
      * @Route("/trick/edit/{slug}", name="trick_edit")
-     * 
+     *
      * @return Response
      */
 
     public function trickManagement(Request $request, $slug = false, TrickRepository $repo, UploaderHelper $uploaderHelper)
     {
-        if($slug !== false) {
+        if ($slug !== false) {
             $trick = $repo->findOneBySlug($slug);
         } else {
             $trick = new Trick();
@@ -46,17 +46,17 @@ class TrickController extends AbstractController
 
         $manager = $this->getDoctrine()->getManager();
 
-        if($form->isSubmitted() && $form->isValid()) {
-            foreach($form->get('images') as $image){
+        if ($form->isSubmitted() && $form->isValid()) {
+            foreach ($form->get('images') as $image) {
                 
                 /** @var UploadedFile $file */
                 $file = $image->get('file')->getData();
-                if ( $file ) {
+                if ($file) {
                     $newFilename = $uploaderHelper->uploadTrickImage($file);
 
                     $imageEntity = $image->getData();
                     $imageEntity->setUrl($newFilename);
-                }     
+                }
             }
 
             $manager->persist($trick);
@@ -72,7 +72,7 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/trick/{slug}", name="trick_show")
-     * 
+     *
      * @return Response
      */
     public function show(Request $request, $slug, TrickRepository $repo, UserRepository $userRepo)
@@ -86,8 +86,7 @@ class TrickController extends AbstractController
 
         $manager = $this->getDoctrine()->getManager();
 
-        if($form->isSubmitted() && $form->isValid()) {
-
+        if ($form->isSubmitted() && $form->isValid()) {
             $userId = $this->getUser()->getId();
             $user = new User();
             $user = $userRepo->findOneById($userId);
@@ -107,5 +106,4 @@ class TrickController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-
 }
