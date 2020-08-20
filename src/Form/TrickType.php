@@ -19,7 +19,7 @@ class TrickType extends AbstractType
             ->add('title')
             ->add('description')
             ->add('groupTrick', EntityType::class, [
-                'class' => Group::Class,
+                'class' => Group::class,
                 'choice_label' => 'name'
             ])
             ->add('images', CollectionType::class, [

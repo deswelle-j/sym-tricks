@@ -25,5 +25,33 @@
         {% endfor %}                
         </div>
     <ul>
-</div>
+
+    {% if trick.comments|length > 0 %}
+        <h2>Commentaire</h2>
+
+        {% for comment in trick.comments %}
+            <div>
+                <strong>{{ comment.author.username }}</strong> a dit :
+                <blockquote>
+                    {{ comment.content }}
+                </blockquote>
+                <strong>le {{ comment.creationDate|date("m/d/Y \\à h:m")}}</strong>
+            </div>
+
+        {% endfor %}
+    {% else %}
+
+    {% endif %}
+
+    {% if is_granted('ROLE_USER') %}
+    <div class="example-wrapper">
+        <h1>Laissez nous un commentaire</h1>
+
+        {{ form_start(form) }}
+        {{ form_widget(form)}}
+        <button type="submit">Envoyer</button>
+        {{ form_end(form)}}
+        </div>
+    </div>
+    {% endif %}
 {% endblock %}
