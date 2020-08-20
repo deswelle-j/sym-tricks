@@ -20,10 +20,12 @@ class TrickController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function home()
+    public function home(TrickRepository $repo)
     {
+        $tricks = $repo->findAll();
+
         return $this->render('trick/home.html.twig', [
-            'controller_name' => 'TrickController',
+            'tricks' => $tricks
         ]);
     }
 
