@@ -35,6 +35,7 @@
                 <blockquote>
                     {{ comment.content }}
                 </blockquote>
+                <strong>le {{ comment.creationDate|date("m/d/Y \\à h:m")}}</strong>
             </div>
 
         {% endfor %}
