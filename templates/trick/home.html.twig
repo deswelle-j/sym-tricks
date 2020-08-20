@@ -8,7 +8,13 @@
 <ul>
 {% for trick in tricks %}
     <li>
-        <h2>{{ trick.title}}</h2>
+        <h2>
+            <a href="{{ path('trick_show', {slug: trick.slug}) }}">{{ trick.title}}</a>
+            {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('trick_edit', {slug: trick.slug}) }}"><img src="{{asset('/assets/pencil-icon_34383.png')}}" alt="" style="width=40px"></a>
+                <a href="#"><img src="{{asset('/assets/trash-can_38501.png')}}" alt="" style="width=40px"></a>
+            {% endif %}
+        </h2>
         {% if trick.images|length > 0 %}
             {% set image = trick.images|first %}
 
