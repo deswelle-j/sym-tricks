@@ -1,4 +1,6 @@
 {
+    "name": "deswelle-j/sym-trick",
+    "description": "Community site about snowboard in symfony 4",
     "type": "project",
     "license": "proprietary",
     "require": {
