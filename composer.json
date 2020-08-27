@@ -21,7 +21,6 @@
         "symfony/mailer": "4.4.*",
         "symfony/monolog-bundle": "^3.1",
         "symfony/orm-pack": "*",
-        "symfony/phpunit-bridge": "^5.0",
         "symfony/process": "4.4.*",
         "symfony/security": "4.4.*",
         "symfony/security-bundle": "4.4.*",
@@ -36,6 +35,7 @@
         "doctrine/doctrine-fixtures-bundle": "^3.3",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
+        "symfony/phpunit-bridge": "^5.0",
         "symfony/profiler-pack": "*",
         "symfony/test-pack": "*",
         "symfony/web-server-bundle": "4.4.*"
