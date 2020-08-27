@@ -11,8 +11,10 @@ use App\Service\UploaderHelper;
 use App\Repository\UserRepository;
 use App\Repository\TrickRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TrickController extends AbstractController
@@ -20,10 +22,12 @@ class TrickController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function home()
+    public function home(TrickRepository $repo)
     {
+        $tricks = $repo->findAll();
+
         return $this->render('trick/home.html.twig', [
-            'controller_name' => 'TrickController',
+            'tricks' => $tricks
         ]);
     }
 
@@ -68,6 +72,27 @@ class TrickController extends AbstractController
         return $this->render('trick/form.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/trick/delete/{id}", name="trick_delete")
+     */
+    public function delete($id, Request $request, TrickRepository $repo, CsrfTokenManagerInterface $csrfTokenManager)
+    {
+        $token = new CsrfToken('delete', $request->query->get('_csrf_token'));
+
+        if (!$csrfTokenManager->isTokenValid($token)) {
+            throw $this->createAccessDeniedException('Token CSRF invalide');
+        }
+
+        $trick = $repo->findOneById($id);
+
+        $manager = $this->getDoctrine()->getManager();
+
+        $manager->remove($trick);
+        $manager->flush();
+
+        return $this->redirectToRoute('home');
     }
 
     /**

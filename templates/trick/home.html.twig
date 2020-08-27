@@ -1,11 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TrickController!{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+
 <h1>Bienvenue sur SnowTrick</h1>
+<ul>
+{% for trick in tricks %}
+    <li>
+        <h2>
+            <a href="{{ path('trick_show', {slug: trick.slug}) }}">{{ trick.title}}</a>
+            {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('trick_edit', {slug: trick.slug}) }}"><img src="{{asset('/assets/pencil-icon_34383.png')}}" alt="" style="width=40px"></a>
+                <a href="{{ path('trick_delete', {id: trick.id, _csrf_token: csrf_token('delete')}) }}"><img src="{{asset('/assets/trash-can_38501.png')}}" alt="" style="width=40px"></a>
+            {% endif %}
+        </h2>
+        {% if trick.images|length > 0 %}
+            {% set image = trick.images|first %}
+
+            <img class="d-block w-100" src="{{asset('/uploads/' ~ image.url)}}" alt="First slide">
+
+        {% endif %}
+    </li>
+{% endfor %}
+</ul>
 {% endblock %}
