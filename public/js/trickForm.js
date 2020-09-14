@@ -10,11 +10,32 @@ $('#add-image').click(function(){
     handleDelete()
 });
 
+$('#add-video').click(function(){
+    const index = +$('#widgets-counter').val();
+
+    const tmpl = $('#trick_videos').data('prototype').replace(/__name__/g, index);
+
+    $('#trick_videos').append(tmpl);
+
+    $('#widgets-counter').val(index + 1);
+
+    handleDelete()
+});
+
 function handleDelete() {
-    $('button[data-action="delete"').click(function(e){
+    $('button[data-action="delete-image"').click(function(e){
         e.preventDefault()
 
         if(confirm("Voulez-vous supprimer cette image ?")) {
+            const target = this.dataset.target
+            $(target).remove();
+        }
+    })
+
+    $('button[data-action="delete-video"').click(function(e){
+        e.preventDefault()
+
+        if(confirm("Voulez-vous supprimer cette video ?")) {
             const target = this.dataset.target
             $(target).remove();
         }
