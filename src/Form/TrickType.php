@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Group;
 use App\Entity\Trick;
 use App\Form\ImageType;
+use App\Form\VideoType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -24,6 +25,12 @@ class TrickType extends AbstractType
             ])
             ->add('images', CollectionType::class, [
                 'entry_type' => ImageType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false
+            ])
+            ->add('videos', CollectionType::class, [
+                'entry_type' => VideoType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false

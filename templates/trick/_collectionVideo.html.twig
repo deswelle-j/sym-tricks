@@ -1,0 +1,30 @@
+{% block _trick_videos_entry_row %}
+    {{ form_widget(form) }}
+{% endblock %}
+
+{% block _trick_videos_widget %}
+    <p>Ajouter une video</p>
+
+    {{ form_widget(form) }}
+    
+    <input type="hidden" id="widgets-counter" value="0">
+    <button type="button" id="add-video">Ajouter une video</button>
+
+{% endblock %}
+
+{% block _trick_videos_entry_widget %}
+    <div class="form-group" id="block_{{id}}">
+        <div class="row">
+            <div class="col-10">
+                <div class="col">
+                    {{ form_label(form.link) }}
+                    {{ form_widget(form.link) }}
+                    {{ form_errors(form.link) }}
+                </div>
+            </div>
+            <div class="col-2">
+                <button type="button" class="btn btn-danger" data-action="delete-video" data-target="#block_{{id}}">X</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

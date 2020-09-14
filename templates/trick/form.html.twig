@@ -2,7 +2,10 @@
 
 {% block title %}Hello TrickController!{% endblock %}
 
-{% form_theme  form 'trick/_collectionImage.html.twig' %}
+{% form_theme  form with [
+    'trick/_collectionImage.html.twig',
+    'trick/_collectionVideo.html.twig'
+] %}
 
 {% block body %}
 
