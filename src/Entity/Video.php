@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\VideoRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=VideoRepository::class)
@@ -19,6 +20,15 @@ class Video
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Url(
+     *    protocols = {"https"},
+     *    message = "Le lien '{{ value }}' n'est pas un lien youtube valide"
+     * )
+     * * @Assert\Regex(
+     *     pattern="/^(https://youtu.be/)|(https://www.youtube.com/)/",
+     *     match=true
+     * )
      */
     private $link;
 
