@@ -33,3 +33,6 @@ services:
     App\EventListener\UserMailingListener:
         tags:
             - { name : kernel.event_listener , event: user.register ,  method: OnAfterUserIsCreated}
+    App\EventListener\ResetPasswordListener:
+        tags:
+            - { name : kernel.event_listener , event: user.reset-password ,  method: OnAfterUserIsCreated}
