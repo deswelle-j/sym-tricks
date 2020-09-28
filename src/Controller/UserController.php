@@ -71,7 +71,6 @@ class UserController extends AbstractController
 
             if($form->get('email')->getData()) {
                 $email = $form->get('email')->getData();
-                $user = new User();
                 $user = $repo->findOneByEmail($email);
                 $user->setToken(bin2hex(random_bytes(60)));
 
@@ -108,8 +107,6 @@ class UserController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $user = $repo->findOneByUsername($username);
-
                 $hash = $form->get('hash')->getData();
                 $hash = $encoder->encodePassword($user, $hash);
             

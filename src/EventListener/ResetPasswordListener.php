@@ -15,7 +15,7 @@ class ResetPasswordListener
         $this->mailer = $mailer;
     }
 
-    public function OnAfterUserIsCreated(ResetPasswordEvent $resetPasswordEvent)
+    public function OnAfterUserRequestPassword(ResetPasswordEvent $resetPasswordEvent)
     {
 
         $user = $resetPasswordEvent->getUser();
