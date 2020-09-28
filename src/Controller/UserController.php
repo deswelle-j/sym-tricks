@@ -73,7 +73,6 @@ class UserController extends AbstractController
                 $email = $form->get('email')->getData();
                 $user = new User();
                 $user = $repo->findOneByEmail($email);
-                $user->setActive(false);
                 $user->setToken(bin2hex(random_bytes(60)));
 
                 $manager = $this->getDoctrine()->getManager();
@@ -116,7 +115,6 @@ class UserController extends AbstractController
             
                 $user->setHash($hash);
 
-                $user->setActive(true);
                 $user->setToken("");
 
                 $manager = $this->getDoctrine()->getManager();
