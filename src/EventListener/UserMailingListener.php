@@ -8,11 +8,14 @@ use Symfony\Component\Mailer\MailerInterface;
 
 class UserMailingListener
 {
-    private $mailer;
 
-    public function __construct(MailerInterface $mailer)
+    private $mailer;
+    private $send_email;
+
+    public function __construct(MailerInterface $mailer, string $send_email)
     {
         $this->mailer = $mailer;
+        $this->send_email = $send_email;
     }
 
     public function OnAfterUserIsCreated(RegistrationEvent $registrationEvent)
@@ -22,7 +25,7 @@ class UserMailingListener
         $token = $user->getToken();
         $username = $user->getUsername();
         $email = (new Email())
-            ->from('testmail@gmail.com')
+            ->from($this->send_email)
             ->to($user->getEmail())
             ->priority(Email::PRIORITY_HIGH)
             ->subject('Inscription sur Snowtrick')

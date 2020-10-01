@@ -9,10 +9,12 @@ use Symfony\Component\Mailer\MailerInterface;
 class ResetPasswordListener
 {
     private $mailer;
+    private $send_email;
 
-    public function __construct(MailerInterface $mailer)
+    public function __construct(MailerInterface $mailer, string $send_email)
     {
         $this->mailer = $mailer;
+        $this->send_email = $send_email;
     }
 
     public function OnAfterUserRequestPassword(ResetPasswordEvent $resetPasswordEvent)
@@ -22,7 +24,7 @@ class ResetPasswordListener
         $token = $user->getToken();
         $username = $user->getUsername();
         $email = (new Email())
-            ->from('testmail@gmail.com')
+            ->from($this->send_email)
             ->to($user->getEmail())
             ->priority(Email::PRIORITY_HIGH)
             ->subject('Réinitialisation de mot de passe sur Snowtrick')
