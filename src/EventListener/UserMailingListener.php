@@ -5,17 +5,20 @@ namespace App\EventListener;
 use App\Event\RegistrationEvent;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class UserMailingListener
 {
 
     private $mailer;
     private $send_email;
+    private $router;
 
-    public function __construct(MailerInterface $mailer, string $send_email)
+    public function __construct(MailerInterface $mailer, string $send_email, UrlGeneratorInterface $router)
     {
         $this->mailer = $mailer;
         $this->send_email = $send_email;
+        $this->router = $router;
     }
 
     public function OnAfterUserIsCreated(RegistrationEvent $registrationEvent)
@@ -24,12 +27,13 @@ class UserMailingListener
         $user = $registrationEvent->getUser();
         $token = $user->getToken();
         $username = $user->getUsername();
+        $url = $this->router->generate('user_token_verify', ['username' => $username, 'token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
         $email = (new Email())
             ->from($this->send_email)
             ->to($user->getEmail())
             ->priority(Email::PRIORITY_HIGH)
             ->subject('Inscription sur Snowtrick')
-            ->text("pour finaliser votre inscription cliquez sur ce lien http://127.0.0.1:8000/verify/{$username}/token={$token}")
+            ->text("{$url}")
             ->html('<p>See Twig integration for better HTML integration!</p>');
 
         $this->mailer->send($email);
