@@ -26,6 +26,15 @@
         </div>
     <ul>
 
+    <ul>
+        {% for video in trick.videos %}
+            <li>
+                <iframe width="1280" height="720" src="{{video.link}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </li>
+        {% endfor %}                
+        </div>
+    <ul>
+
     {% if trick.comments|length > 0 %}
         <h2>Commentaire</h2>
 
