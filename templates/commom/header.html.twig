@@ -15,6 +15,9 @@
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     {% if app.user %}
+                    <li>
+                        <a href="{{path('app_my_account')}}" class="nav-link">Mon Compte</a>
+                    </li>
                     <li class="nav-item">
                         <a href="{{path('app_logout')}}" class="nav-link">Déconnexion</a>
                     </li>
@@ -23,7 +26,7 @@
                         <a href="{{path('user_registration')}}" class="nav-link">Inscription</a>
                     </li>
                     <li>
-                        <a href="{{path('app_login')}}" class="nav-link">Mon Compte</a>
+                        <a href="{{path('app_login')}}" class="nav-link">Connexion</a>
                     </li>
                     {% endif %}
                 </ul>
