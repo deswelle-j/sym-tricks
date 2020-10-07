@@ -2,14 +2,13 @@
 
 namespace App\EventListener;
 
-use App\Event\RegistrationEvent;
+use App\Event\ResetPasswordEvent;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class UserMailingListener
+class ResetPasswordListener
 {
-
     private $mailer;
     private $send_email;
     private $router;
@@ -21,18 +20,18 @@ class UserMailingListener
         $this->router = $router;
     }
 
-    public function OnAfterUserIsCreated(RegistrationEvent $registrationEvent)
+    public function OnAfterUserRequestPassword(ResetPasswordEvent $resetPasswordEvent)
     {
 
-        $user = $registrationEvent->getUser();
+        $user = $resetPasswordEvent->getUser();
         $token = $user->getToken();
         $username = $user->getUsername();
-        $url = $this->router->generate('user_token_verify', ['username' => $username, 'token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
+        $url = $this->router->generate('user_reset_password', ['username' => $username, 'token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
         $email = (new Email())
             ->from($this->send_email)
             ->to($user->getEmail())
             ->priority(Email::PRIORITY_HIGH)
-            ->subject('Inscription sur Snowtrick')
+            ->subject('Réinitialisation de mot de passe sur Snowtrick')
             ->text("{$url}")
             ->html('<p>See Twig integration for better HTML integration!</p>');
 

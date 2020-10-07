@@ -15,13 +15,6 @@ class UserVerify
     public function tokenVerify($username, $user, $token)
     {
         if($user->getUsername() == $username && $user->getToken() == $token) {
-            $user->setActive(true);
-            $user->setToken("");
-
-            
-            $this->manager->persist($user);
-            $this->manager->flush();
-
             return true;
         } else {
             return false;
