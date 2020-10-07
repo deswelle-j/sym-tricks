@@ -95,6 +95,16 @@ class UserController extends AbstractController
     }
 
     /**
+     * @Route("/account/{username}", name="user_my_account")
+     */
+    public function myAccount($username)
+    {
+        return $this->render('user/my_account.html.twig', [
+            'account' => $username,
+        ]);
+    }
+
+    /**
      * @Route("/reset/{username}/token={token}", name="user_reset_password")
      */
     public function resetPassword($token, $username, Request $request, UserPasswordEncoderInterface $encoder, UserRepository $repo, UserVerify $userVerify)
