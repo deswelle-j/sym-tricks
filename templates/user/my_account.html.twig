@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block body %}
+<div class="example-wrapper">
+    <ul>
+        <li>Nom d'utilisateur: {{ user.username }}</li>
+        <li>Email: {{ user.email }}</li>
+    </ul>
+        {{ form_start(form) }}
+        {{ form_widget(form)}}
+        <button type="submit">Enregistrer</button>
+        {{ form_end(form)}}
+</div>
+{% endblock %}
