@@ -36,7 +36,7 @@ class UserController extends AbstractController
             
             $file = $form['avatar']->getData();
             if ($file) {
-                $newFilename = $uploaderHelper->uploadTrickImage($file);
+                $newFilename = $uploaderHelper->uploadImage($file);
 
                 // $imageEntity = $image->getData();
                 $user->setAvatarPath($newFilename);
@@ -118,7 +118,7 @@ class UserController extends AbstractController
             
             $file = $form['avatar']->getData();
             if ($file) {
-                $newFilename = $uploaderHelper->uploadTrickImage($file);
+                $newFilename = $uploaderHelper->uploadImage($file);
                 $user->setAvatarPath($newFilename);
             }
 

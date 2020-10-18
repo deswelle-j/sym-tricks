@@ -15,7 +15,7 @@ class UploaderHelper
         $this->uploadsPath = $uploadsPath;
     }
 
-    public function uploadTrickImage(UploadedFile $uploadedFile): string
+    public function uploadImage(UploadedFile $uploadedFile): string
     {
         $destination = $this->uploadsPath;
         $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
