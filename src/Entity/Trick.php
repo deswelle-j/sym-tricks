@@ -68,6 +68,11 @@ class Trick
      */
     private $videos;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $creationDate;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -251,6 +256,18 @@ class Trick
                 $video->setTrick(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreationDate(): ?\DateTimeInterface
+    {
+        return $this->creationDate;
+    }
+
+    public function setCreationDate(\DateTimeInterface $creationDate): self
+    {
+        $this->creationDate = $creationDate;
 
         return $this;
     }
