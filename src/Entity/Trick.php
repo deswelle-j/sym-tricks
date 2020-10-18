@@ -68,6 +68,11 @@ class Trick
      */
     private $videos;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $creationDate;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -88,13 +93,21 @@ class Trick
     }
 
     /**
-     * @ORM\PrePersist
+     * @ORM\PrePersist()
      * @ORM\PreUpdate
      */
     public function initializeModificationDate()
     {
         $date = new DateTime('NOW');
         $this->modification_date = $date;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function initializeCreationDate()
+    {
+        $this->creationDate = new \DateTime();
     }
 
     public function getId(): ?int
@@ -251,6 +264,18 @@ class Trick
                 $video->setTrick(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreationDate(): ?\DateTimeInterface
+    {
+        return $this->creationDate;
+    }
+
+    public function setCreationDate(\DateTimeInterface $creationDate): self
+    {
+        $this->creationDate = $creationDate;
 
         return $this;
     }

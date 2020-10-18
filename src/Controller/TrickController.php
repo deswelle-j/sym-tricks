@@ -56,7 +56,7 @@ class TrickController extends AbstractController
                 /** @var UploadedFile $file */
                 $file = $image->get('file')->getData();
                 if ($file) {
-                    $newFilename = $uploaderHelper->uploadTrickImage($file);
+                    $newFilename = $uploaderHelper->uploadImage($file);
 
                     $imageEntity = $image->getData();
                     $imageEntity->setUrl($newFilename);

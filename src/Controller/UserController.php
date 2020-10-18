@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Event\UserEvent;
+use App\Form\AccountType;
 use App\Service\UserVerify;
 use App\Form\RegistrationType;
 use App\Form\PasswordResetType;
+use App\Service\UploaderHelper;
 use App\Event\RegistrationEvent;
 use App\Event\ResetPasswordEvent;
 use App\Repository\UserRepository;
@@ -22,7 +24,7 @@ class UserController extends AbstractController
     /**
      * @Route("/register", name="user_registration")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $encoder, EventDispatcherInterface $dispatcher)
+    public function register(Request $request, UploaderHelper $uploaderHelper, UserPasswordEncoderInterface $encoder, EventDispatcherInterface $dispatcher)
     {
         $user = new User();
 
@@ -32,6 +34,14 @@ class UserController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
             
+            $file = $form['avatar']->getData();
+            if ($file) {
+                $newFilename = $uploaderHelper->uploadImage($file);
+
+                // $imageEntity = $image->getData();
+                $user->setAvatarPath($newFilename);
+            }
+
             $hash = $encoder->encodePassword($user, $user->getHash());
             
             $user->setHash($hash);
@@ -97,10 +107,37 @@ class UserController extends AbstractController
     /**
      * @Route("/account/{username}", name="user_my_account")
      */
-    public function myAccount($username)
+    public function myAccount($username, UserRepository $repo, Request $request, UploaderHelper $uploaderHelper, UserPasswordEncoderInterface $encoder)
     {
+        $user = $repo->findOneByUsername($username);
+
+        $form = $this->createForm(AccountType::class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            
+            $file = $form['avatar']->getData();
+            if ($file) {
+                $newFilename = $uploaderHelper->uploadImage($file);
+                $user->setAvatarPath($newFilename);
+            }
+
+            $hash = $encoder->encodePassword($user, $user->getHash());
+            $user->setHash($hash);
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($user);
+            $manager->flush();
+            
+            $this->addFlash(
+                'success',
+                'Votre compte a bien été mis a jour'
+            );
+        }
+
         return $this->render('user/my_account.html.twig', [
-            'account' => $username,
+            'form' => $form->createView(),
+            'user' => $user
         ]);
     }
 
