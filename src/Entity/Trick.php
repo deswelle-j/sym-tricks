@@ -93,13 +93,21 @@ class Trick
     }
 
     /**
-     * @ORM\PrePersist
+     * @ORM\PrePersist()
      * @ORM\PreUpdate
      */
     public function initializeModificationDate()
     {
         $date = new DateTime('NOW');
         $this->modification_date = $date;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function initializeCreationDate()
+    {
+        $this->creationDate = new \DateTime();
     }
 
     public function getId(): ?int
