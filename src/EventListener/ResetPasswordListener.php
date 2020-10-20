@@ -25,8 +25,8 @@ class ResetPasswordListener
 
         $user = $resetPasswordEvent->getUser();
         $token = $user->getToken();
-        $username = $user->getUsername();
-        $url = $this->router->generate('user_reset_password', ['username' => $username, 'token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
+        $userId = $user->getId();
+        $url = $this->router->generate('user_reset_password', ['userId' => $userId, 'token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
         $email = (new Email())
             ->from($this->send_email)
             ->to($user->getEmail())

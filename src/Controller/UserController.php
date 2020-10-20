@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Event\UserEvent;
 use App\Form\AccountType;
 use App\Service\UserVerify;
 use App\Form\RegistrationType;
@@ -29,23 +28,18 @@ class UserController extends AbstractController
         $user = new User();
 
         $form = $this->createForm(RegistrationType::class, $user);
-
         $form->handleRequest($request);
-
         if($form->isSubmitted() && $form->isValid()) {
             
             $file = $form['avatar']->getData();
             if ($file) {
                 $newFilename = $uploaderHelper->uploadImage($file);
-
-                // $imageEntity = $image->getData();
                 $user->setAvatarPath($newFilename);
             }
 
             $hash = $encoder->encodePassword($user, $user->getHash());
             
             $user->setHash($hash);
-
             $user->setActive(false);
             $user->setToken(bin2hex(random_bytes(60)));
 
@@ -54,12 +48,12 @@ class UserController extends AbstractController
             $manager->flush();
 
             $userEvent = new RegistrationEvent($user);
-
             $dispatcher->dispatch($userEvent, RegistrationEvent::NAME);
             
             $this->addFlash(
                 'success',
-                'Votre compte a bien été créé'
+                'Votre compte a bien été créé, 
+                un email de validation va vous être envoyé dans votre boite mail'
             );
         }
 
@@ -94,7 +88,7 @@ class UserController extends AbstractController
                 
                 $this->addFlash(
                     'success',
-                    'Votre mot de passe a bien été réinitialisé'
+                    'Un email de réinitialisation va vous être envoyé'
                 );
             }
         }
@@ -105,11 +99,11 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/account/{username}", name="user_my_account")
+     * @Route("/account/{userId}", name="user_my_account")
      */
-    public function myAccount($username, UserRepository $repo, Request $request, UploaderHelper $uploaderHelper, UserPasswordEncoderInterface $encoder)
+    public function myAccount($userId, UserRepository $repo, Request $request, UploaderHelper $uploaderHelper, UserPasswordEncoderInterface $encoder)
     {
-        $user = $repo->findOneByUsername($username);
+        $user = $repo->findOneById($userId);
 
         $form = $this->createForm(AccountType::class);
         $form->handleRequest($request);
@@ -142,13 +136,13 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/reset/{username}/token={token}", name="user_reset_password")
+     * @Route("/reset/{userId}/token={token}", name="user_reset_password")
      */
-    public function resetPassword($token, $username, Request $request, UserPasswordEncoderInterface $encoder, UserRepository $repo, UserVerify $userVerify)
+    public function resetPassword($token, $userId, Request $request, UserPasswordEncoderInterface $encoder, UserRepository $repo, UserVerify $userVerify)
     {
-        $user = $repo->findOneByUsername($username);
+        $user = $repo->findOneById($userId);
 
-        if ($userVerify->tokenVerify($username, $user, $token)) {
+        if ($userVerify->tokenVerify($userId, $user, $token)) {
 
             $form = $this->createForm(PasswordResetType::class);
             $form->handleRequest($request);
@@ -180,13 +174,13 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/verify/{username}/token={token}", name="user_token_verify")
+     * @Route("/verify/{userId}/token={token}", name="user_token_verify")
      */
-    public function userVerify($token, $username, UserRepository $repo, UserVerify $userVerify)
+    public function userVerify($token, $userId, UserRepository $repo, UserVerify $userVerify)
     {
-        $user = $repo->findOneByUsername($username);
+        $user = $repo->findOneById($userId);
 
-        if ($userVerify->tokenVerify($username, $user, $token) ) {
+        if ($userVerify->tokenVerify($userId, $user, $token) ) {
             $this->addFlash(
                 'success',
                 'Votre compte a bien été validé'
