@@ -4,11 +4,16 @@
         <title>{% block title %}Welcome{% endblock %}</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{asset('build/js/app.css')}}">
+        <link rel="stylesheet" href="{{asset('/build/vendors~js/app.css')}}">
+        {# <link rel="stylesheet" href="{{asset('build/vendor~css/app~js/app.js')}}"> #}
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
     {% include 'commom/header.html.twig' %}
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
+        <script src="{{asset('build/vendors~js/app.js')}}"></script>
+        <script src="{{asset('build/js/app.js')}}"></script>
     </body>
 </html>

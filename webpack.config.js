@@ -24,7 +24,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('js/app', './assets/app.js')
-    .addStyleEntry('css/app', './assets/styles/app.scss')
+    // .addStyleEntry('css/app', './assets/styles/app.css')
     //.addEntry('page2', './assets/page2.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
@@ -54,12 +54,11 @@ Encore
     })
 
     // enables Sass/SCSS support
-    .enableSassLoader()
+    // .enableSassLoader()
 
-//     .enableSassLoader(function(sassOptions) {
-//         // sassOptions.includePaths = ['node_modules/foundation-sites/scss'];
-//         // console.log(sassOptions);
-//   })
+    .enableSassLoader(function(sassOptions) {
+        options.includePaths = ['node_modules/foundation-sites/scss'];
+ })
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
@@ -70,6 +69,10 @@ Encore
 
     // uncomment if you're having problems with a jQuery plugin
     .autoProvidejQuery()
+
+    .autoProvideVariables({
+        'window.jQuery': 'jquery'
+    })
 
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()
