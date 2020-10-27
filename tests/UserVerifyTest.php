@@ -26,15 +26,20 @@ class UserVerifyTest Extends TestCase
     /**
      * @dataProvider tokenToVerify
      */
-    public function testTokenVerify($username, $Usertoken, $token)
+    public function testTokenVerify($userId, $Usertoken, $token)
     {
+        $user = $this->getMockBuilder(User::class)
+                     ->disableOriginalConstructor()
+                     ->disableOriginalClone()
+                     ->getMock();
+        $user->method('getId')
+             ->willReturn($userId);
 
-        $user = new User();
-        $user->setUsername($username);
-        $user->setToken($Usertoken);
+        $user->method('getToken')
+             ->willReturn($token);
 
         $userVerify = new UserVerify($this->entityManager);
-        $result = $userVerify->tokenVerify($username, $user, $token);
+        $result = $userVerify->tokenVerify($userId, $user, $token);
 
         $this->assertTrue($result);
     }
@@ -42,7 +47,7 @@ class UserVerifyTest Extends TestCase
     public function tokenToVerify()
     {
         return [
-            ["john", "tokengenerick1204684235", "tokengenerick1204684235"]
+            ["3", "tokengenerick1204684235", "tokengenerick1204684235"]
         ];
     }
 

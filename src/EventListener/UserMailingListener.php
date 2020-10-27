@@ -26,8 +26,8 @@ class UserMailingListener
 
         $user = $registrationEvent->getUser();
         $token = $user->getToken();
-        $username = $user->getUsername();
-        $url = $this->router->generate('user_token_verify', ['username' => $username, 'token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
+        $userId = $user->getId();
+        $url = $this->router->generate('user_token_verify', ['userId' => $userId, 'token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
         $email = (new Email())
             ->from($this->send_email)
             ->to($user->getEmail())
