@@ -56,9 +56,7 @@ Encore
     // enables Sass/SCSS support
     // .enableSassLoader()
 
-    .enableSassLoader(function(sassOptions) {
-        options.includePaths = ['node_modules/foundation-sites/scss'];
- })
+    .enableSassLoader()
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
@@ -69,10 +67,6 @@ Encore
 
     // uncomment if you're having problems with a jQuery plugin
     .autoProvidejQuery()
-
-    .autoProvideVariables({
-        'window.jQuery': 'jquery'
-    })
 
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()
