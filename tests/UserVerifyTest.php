@@ -36,7 +36,7 @@ class UserVerifyTest Extends TestCase
              ->willReturn($userId);
 
         $user->method('getToken')
-             ->willReturn($token);
+             ->willReturn($Usertoken);
 
         $userVerify = new UserVerify($this->entityManager);
         $result = $userVerify->tokenVerify($userId, $user, $token);
