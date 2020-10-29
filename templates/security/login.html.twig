@@ -3,16 +3,58 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+<div class="page-header header-filter" filter-color="orange">
+    <div class="page-header-image" style="background-image:url(../assets/img/login.jpg)"></div>
+    <div class="content login-page">
+      <div class="container">
+        <div class="col-md-5 ml-auto mr-auto">
+          <div class="card card-login card-plain">
+            <form class="form" method="post" >
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                {% if app.user %}
+                    <div class="mb-3">
+                        You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    </div>
+                {% endif %}
+                <div class="card-header text-center">
+                    <div class="logo-container">
+                        <img src="../assets/img/now-logo.png" alt="">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="input-group no-border input-lg">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="now-ui-icons users_circle-08"></i></span>
+                        </div>
+                        <input type="text" value="{{ last_username }}" placeholder="votre nom utilisateur..." name="username" id="inputUsername" class="form-control" required autofocus>
+                    </div>
+                    <div class="input-group no-border input-lg">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="now-ui-icons text_caps-small"></i></span>
+                        </div>
+                        <input type="password" name="password" placeholder="Votre mot de passe" id="inputPassword" class="form-control" required>
+                    </div>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                </div>
+                <div class="card-footer text-center">
+                    <button class="btn btn-lgbtn btn-primary btn-round btn-lg btn-block" type="submit">Connexion</button>
+                </div>
+                <div class="pull-left">
+                    <h6>
+                        <a class="link footer-link" href="{{path('user_password_forgotten')}}">Password forgotten</a>
+                    </h6>
+                </div>
+            </form>
         </div>
-    {% endif %}
+    </div>
+</div>
+
+{# <form method="post">
+    
 
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
     <label for="inputUsername">Username</label>
@@ -21,7 +63,7 @@
     <input type="password" name="password" id="inputPassword" class="form-control" required>
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
-    >
+    > #}
 
     {#
         Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
@@ -33,12 +75,4 @@
             </label>
         </div>
     #}
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
-<a href="{{path('user_password_forgotten')}}">Password forgotten</a>
-
-
 {% endblock %}
