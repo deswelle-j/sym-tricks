@@ -10,9 +10,14 @@ import './styles/app.scss';
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 const $ = require('jquery');
-require('bootstrap');
 
-// $(document).ready(function() {
+require('bootstrap');
+require('./now-ui-kit.js');
+require('./trickForm.js')
+
+// jQuery(function() {
 //     $('[data-toggle="popover"]').popover();
-// });
-console.log('Hello Webpack Encore! Edit me in assets/app.js');
+// })
+$(document).ready(function() {
+    $('[data-toggle="popover"]').popover();
+});

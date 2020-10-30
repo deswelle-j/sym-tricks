@@ -23,7 +23,7 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
-    .addEntry('js/app', './assets/app.js')
+    .addEntry('app', './assets/app.js')
     // .addStyleEntry('css/app', './assets/styles/app.css')
     //.addEntry('page2', './assets/page2.js')
 
@@ -72,7 +72,5 @@ Encore
     //.enableReactPreset()
     //.addEntry('admin', './assets/admin.js')
 ;
-// var config = Encore.getWebpackConfig();
-// console.log(config.module.rules);
 
 module.exports = Encore.getWebpackConfig();
