@@ -18,9 +18,24 @@ class LoadGroupData extends Fixture
         $grab->setName('Grab');
         $manager->persist($grab);
 
+        $flip = new Group;
+        $flip->setName('Flip');
+        $manager->persist($flip);
+
+        $slide= new Group;
+        $slide->setName('Slide');
+        $manager->persist($slide);
+
         $manager->flush();
 
         $this->addReference('group-flat', $flat);
         $this->addReference('group-grab', $grab);
+        $this->addReference('group-flip', $flip);
+        $this->addReference('group-slide', $slide);
+    }
+
+    public function getOrder()
+    {
+        return 1; // ordre d'appel
     }
 }
