@@ -641,9 +641,9 @@
     letter-spacing: -10px;
     text-align: center;
     background: #ffedea;
-    background: -moz-linear-gradient(top, #FFFFFF 35%, #c38775 100%);
-    background: -webkit-linear-gradient(top, #FFFFFF 35%, #c38775 100%);
-    background: linear-gradient(to bottom, #FFFFFF 35%, #c38775 100%);
+    background: -moz-linear-gradient(top, #FFFFFF 35%, #75bec3 100%);
+    background: -webkit-linear-gradient(top, #FFFFFF 35%, #75bec3 100%);
+    background: linear-gradient(to bottom, #FFFFFF 35%, #75bec3 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -715,7 +715,7 @@
   
   .presentation-page .page-header,
   .index-page .page-header {
-    background: #d0aea8;
+    background: #a8cbd0;
   }
   
   .index-page .rellax-text-container {
@@ -724,7 +724,7 @@
   
   .index-page .rellax-text-container .h1-seo {
     letter-spacing: -3px;
-    font-size: 10.3em;
+    font-size: 7.3em;
   }
   
   .tim-white-buttons {
@@ -1014,9 +1014,9 @@
     }
     .presentation-page .rellax-text-container .h1-seo,
     .presentation-page .index-page .h1-seo {
-      background: -moz-linear-gradient(top, #FFFFFF 64%, #c38775 100%);
-      background: -webkit-linear-gradient(top, #FFFFFF 64%, #c38775 100%);
-      background: linear-gradient(to bottom, #FFFFFF 64%, #c38775 100%);
+      background: -moz-linear-gradient(top, #FFFFFF 64%, #75bec3 100%);
+      background: -webkit-linear-gradient(top, #FFFFFF 64%, #75bec3 100%);
+      background: linear-gradient(to bottom, #FFFFFF 64%, #75bec3 100%);
       -webkit-background-clip: text;
       font-size: 8.4em;
     }
