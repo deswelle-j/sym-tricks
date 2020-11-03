@@ -96,7 +96,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/trick/{slug}", name="trick_show")
+     * @Route("/trick/detail/{slug}", name="trick_show")
      *
      * @return Response
      */
