@@ -1,66 +1,104 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TrickController!{% endblock %}
+{% block title %}{{trick.title}}{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <ul>
-        <li>Id du trick: {{ trick.id }}</li>
-        <li>Titre: {{ trick.title }}</li>
-        <li>description: {{ trick.description }}</li>
-        <li>date de modification: {{ trick.modificationdate |date("m/d/Y")}}</li>
-    </ul>
-
-    <ul>
-        {% for image in trick.images %}
-            <li>
-                <img class="d-block w-100" src="{{asset('/uploads/' ~ image.url)}}" alt="First slide">
-            </li>
-
-        {% endfor %}                
-        </div>
-    <ul>
-
-    <ul>
-        {% for video in trick.videos %}
-            <li>
-                <iframe width="1280" height="720" src="{{video.link}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </li>
-        {% endfor %}                
-        </div>
-    <ul>
-
-    {% if trick.comments|length > 0 %}
-        <h2>Commentaire</h2>
-
-        {% for comment in trick.comments %}
-            <div>
-                <strong>{{ comment.author.username }}</strong> a dit :
-                <blockquote>
-                    {{ comment.content }}
-                </blockquote>
-                <strong>le {{ comment.creationDate|date("m/d/Y \\à h:m")}}</strong>
+    <div class="wrapper">
+        <div class="page-header page-header-small">
+            {% if trick.images|length > 0 %}
+                {% set image = trick.images|first %}
+                <div class="page-header-image" data-parallax="true" style="background-image: url({{asset('/uploads/' ~ image.url)}})">
+                </div>
+            {% else %}
+                <div class="page-header-image" data-parallax="true" style="background-image: url({{asset('/assets/freestyle-snowboards-back-grab-1-5f9be0af06385.jpeg')}})">
+                </div>
+            {% endif %}
+            <div class="content-center">
+                <div class="row">
+                    <div class="col-md-8 ml-auto mr-auto text-center">
+                        <h2 class="title">{{ trick.title }}</h2>
+                    </div>
+                </div>
             </div>
+        </div>
+        <div class="section">
+            <div class="container">
+                <div class="row">
+                    <ul>
+                        {% for image in trick.images %}
+                            <li>
+                                <img class="d-block w-100" src="{{asset('/uploads/' ~ image.url)}}" alt="First slide">
+                            </li>
 
-        {% endfor %}
-    {% else %}
+                        {% endfor %}                
+                    </ul>
+                    <ul>
+                            {% for video in trick.videos %}
+                                <li>
+                                    <iframe width="1280" height="720" src="{{video.link}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </li>
+                            {% endfor %}                
+                    </ul>
+                    <div class="col-md-8 ml-auto mr-auto">
+                        <h3 class="title">The Castle Looks Different at Night...</h3>
+                        <p>description: {{ trick.description }}</p>
+                        <p>date de modification: {{ trick.modificationdate |date("m/d/Y")}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section section-comments">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 ml-auto mr-auto">
+                        <div class="media-area">
+                            {% if trick.comments|length > 0 %}
+                                <h3 class="title text-center">{{trick.comments|length}} Commentaire(s)</h3>
+                                {% for comment in trick.comments %}
+                                    <div class="media">
+                                        <a class="pull-left" href="#pablo">
+                                            <div class="avatar">
+                                                <img class="media-object img-raised" src="../assets/img/james.jpg" alt="..." />
+                                            </div>
+                                        </a>
+                                        <div class="media-body">
+                                            <h5 class="media-heading">{{ comment.author.username }}
+                                                <small class="text-muted">&middot; {{ comment.creationDate|date("m/d/Y \\à h:m")}}</small>
+                                            </h5>
+                                            <p>{{ comment.content }}</p>
+                                            <div class="media-footer">
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                             <h3 class="title text-center">Connectez-vous pour commenter</h3>
+                            {% endif %}
+                        </div>
 
-    {% endif %}
-
-    {% if is_granted('ROLE_USER') %}
-    <div class="example-wrapper">
-        <h1>Laissez nous un commentaire</h1>
-
-        {{ form_start(form) }}
-        {{ form_widget(form)}}
-        <button type="submit">Envoyer</button>
-        {{ form_end(form)}}
+                        {% if is_granted('ROLE_USER') %}
+                            <h3 class="title text-center">Laissez nous un commentaire</h3>
+                            <div class="media media-post">
+                                <a class="pull-left author" href="#pablo">
+                                    <div class="avatar">
+                                        <img class="media-object img-raised" alt="64x64" src="../assets/img/olivia.jpg">
+                                    </div>
+                                </a>
+                                <div class="media-body">
+                                    {{ form_start(form) }}
+                                        {{ form_errors(form.content) }}
+                                        {{ form_widget(form.content, {'attr': {'class': 'form-control', 'placeholder':"Write a nice reply or go home..., 'rows':4", }}) }}
+                        
+                                    <div class="media-footer">
+                                        <button class="btn btn-lgbtn btn-primary pull-right" type="submit"><i class="now-ui-icons ui-1_send"></i>Envoyer</button>
+                                    </div>
+                                    {{ form_end(form)}}
+                                </div>
+                            </div>
+                        {% endif %}    
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    {% endif %}
 {% endblock %}
