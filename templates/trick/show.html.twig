@@ -3,14 +3,15 @@
 {% block title %}{{trick.title}}{% endblock %}
 
 {% block body %}
+<div class="container">
     <div class="wrapper">
         <div class="page-header page-header-small">
             {% if trick.images|length > 0 %}
                 {% set image = trick.images|first %}
-                <div class="page-header-image" data-parallax="true" style="background-image: url({{asset('/uploads/' ~ image.url)}})">
+                <div class="page-header-image-detail" data-parallax="true" style="background-image: url({{asset('/uploads/' ~ image.url)}})">
                 </div>
             {% else %}
-                <div class="page-header-image" data-parallax="true" style="background-image: url({{asset('/assets/freestyle-snowboards-back-grab-1-5f9be0af06385.jpeg')}})">
+                <div class="page-header-image-detail" data-parallax="true" style="background-image: url({{asset('/assets/freestyle-snowboards-back-grab-1-5f9be0af06385.jpeg')}})">
                 </div>
             {% endif %}
             <div class="content-center">
@@ -24,14 +25,17 @@
         <div class="section">
             <div class="container">
                 <div class="row">
-                    <ul>
+                        <div class="row">
                         {% for image in trick.images %}
-                            <li>
-                                <img class="d-block w-100" src="{{asset('/uploads/' ~ image.url)}}" alt="First slide">
-                            </li>
-
+                            <div class="col-md-6 col-lg-4">
+                                <div class="card card-blog card-plain">
+                                    <div class="card-image">
+                                        <img class="img rounded img-raised" src="{{asset('/uploads/' ~ image.url)}}">
+                                    </div>
+                                </div>
+                            </div>
                         {% endfor %}                
-                    </ul>
+                        </div>
                     <ul>
                             {% for video in trick.videos %}
                                 <li>
@@ -51,6 +55,26 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-8 ml-auto mr-auto">
+                        {% if is_granted('ROLE_USER') %}
+                            <h3 class="title text-center">Laissez un commentaire</h3>
+                            <div class="media media-post">
+                                <a class="pull-left author" href="#pablo">
+                                    {# <div class="avatar">
+                                        <img class="media-object img-raised" alt="64x64" src="../assets/img/olivia.jpg">
+                                    </div> #}
+                                </a>
+                                <div class="media-body">
+                                    {{ form_start(form) }}
+                                        {{ form_errors(form.content) }}
+                                        {{ form_widget(form.content, {'attr': {'class': 'form-control', 'placeholder':"Ecrivez un joli commentaire ou rentrez che vous...",  'rows':4 }}) }}
+                        
+                                    <div class="media-footer">
+                                        <button class="btn btn-lgbtn btn-primary pull-right" type="submit"><i class="now-ui-icons ui-1_send"></i>Envoyer</button>
+                                    </div>
+                                    {{ form_end(form)}}
+                                </div>
+                            </div>
+                        {% endif %} 
                         <div class="media-area">
                             {% if trick.comments|length > 0 %}
                                 <h3 class="title text-center">{{trick.comments|length}} Commentaire(s)</h3>
@@ -58,7 +82,11 @@
                                     <div class="media">
                                         <a class="pull-left" href="#pablo">
                                             <div class="avatar">
-                                                <img class="media-object img-raised" src="../assets/img/james.jpg" alt="..." />
+                                                {% if comment.author.avatarPath %}
+                                                    <img class="media-object img-raised" src="{{asset('/uploads/' ~ comment.author.avatarPath)}}" alt="..." />
+                                                {% else %}
+                                                    <img class="media-object img-raised" src="https://epicattorneymarketing.com/wp-content/uploads/2016/07/Headshot-Placeholder-1.png" alt="..." />
+                                                {% endif %}
                                             </div>
                                         </a>
                                         <div class="media-body">
@@ -74,31 +102,11 @@
                             {% else %}
                              <h3 class="title text-center">Connectez-vous pour commenter</h3>
                             {% endif %}
-                        </div>
-
-                        {% if is_granted('ROLE_USER') %}
-                            <h3 class="title text-center">Laissez nous un commentaire</h3>
-                            <div class="media media-post">
-                                <a class="pull-left author" href="#pablo">
-                                    <div class="avatar">
-                                        <img class="media-object img-raised" alt="64x64" src="../assets/img/olivia.jpg">
-                                    </div>
-                                </a>
-                                <div class="media-body">
-                                    {{ form_start(form) }}
-                                        {{ form_errors(form.content) }}
-                                        {{ form_widget(form.content, {'attr': {'class': 'form-control', 'placeholder':"Write a nice reply or go home..., 'rows':4", }}) }}
-                        
-                                    <div class="media-footer">
-                                        <button class="btn btn-lgbtn btn-primary pull-right" type="submit"><i class="now-ui-icons ui-1_send"></i>Envoyer</button>
-                                    </div>
-                                    {{ form_end(form)}}
-                                </div>
-                            </div>
-                        {% endif %}    
+                        </div>   
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
