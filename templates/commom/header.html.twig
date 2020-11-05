@@ -15,7 +15,7 @@
         <ul class="navbar-nav ml-auto">
           <li class="nav-item dropdown">
             <a href="{{path('home')}}" class="nav-link" id="navbarDropdownMenuLink1" >
-              <i class="now-ui-icons design_app"></i>
+              {# <i class="now-ui-icons design_app"></i> #}
               <p>Accueil</p>
             </a>
           </li>
@@ -26,15 +26,15 @@
               <p>Formulaire ajout de figure</p>
             </a>
           </li>
-          <li class="nav-item dropdown">
-            <a href="{{path('user_my_account', {userId: app.user.id})}}" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown">
-              <i class="now-ui-icons design_image" aria-hidden="true"></i>
+          <li class="nav-item">
+            <a href="{{path('user_my_account', {userId: app.user.id})}}" class="nav-link" id="navbarDropdownMenuLink">
+              <i class="now-ui-icons users_circle-08" aria-hidden="true"></i>
               <p>Mon Compte</p>
             </a>
           </li>
-          <li class="nav-item dropdown">
-            <a href="{{path('app_logout')}}" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown">
-              <i class="now-ui-icons design_image" aria-hidden="true"></i>
+          <li class="nav-item">
+            <a href="{{path('app_logout')}}" class="nav-link" id="navbarDropdownMenuLink">
+              <i class="now-ui-icons ui-1_simple-remove" aria-hidden="true"></i>
               <p>Déconnexion</p>
             </a>
           </li>
