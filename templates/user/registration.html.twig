@@ -56,12 +56,22 @@
                   {{ form_errors(form.passwordConfirm) }}
                     {{ form_widget(form.passwordConfirm, {'attr': {'class': 'form-control', 'placeholder':"Confirmation du Mot de passe..."}}) }}
                 </div>
-                <div class="input-group no-border input-lg">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="now-ui-icons text_caps-small"></i></span>
+                <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                  <div class="fileinput-new thumbnail img-circle img-raised">
+                    <img src="https://epicattorneymarketing.com/wp-content/uploads/2016/07/Headshot-Placeholder-1.png" alt="...">
                   </div>
-                  {{ form_errors(form.avatar) }}
-                  {{ form_widget(form.avatar, {'attr': {'class': 'form-control'}}) }}
+                    <div class="fileinput-preview fileinput-exists thumbnail img-circle img-raised"></div>
+                      <div>
+                        <span class="btn btn-raised btn-round btn-default btn-file">
+                        <span class="fileinput-new">Choisir une image</span>
+                        <span class="fileinput-exists">Changer d'image</span>
+                        {{ form_widget(form.avatar) }}
+                        </span>
+                        <br />
+                        <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Retirer</a>
+                  </div>
+                </div>
+                <div class="input-group no-border input-lg">
                 </div>
               </div>
               <div class="card-footer text-center">
