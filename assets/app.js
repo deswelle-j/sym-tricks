@@ -13,6 +13,7 @@ const $ = require('jquery');
 
 require('bootstrap');
 require('./now-ui-kit.js');
+require('./plugins/jasny-bootstrap.min.js');
 require('./trickForm.js')
 
 // jQuery(function() {
