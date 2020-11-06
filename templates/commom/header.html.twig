@@ -1,67 +1,66 @@
 <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg bg-white fixed-top navbar-transparent" color-on-scroll="500">
-    <div class="container">
-      <div class="navbar-translate">
-        <a class="navbar-brand" href="{{path('home')}}" rel="tooltip" title="" data-placement="bottom" target="_blank">
-          Snow tricks
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-bar top-bar"></span>
-          <span class="navbar-toggler-bar middle-bar"></span>
-          <span class="navbar-toggler-bar bottom-bar"></span>
-        </button>
-      </div>
-      <div class="collapse navbar-collapse" data-nav-image="./assets/img//blurred-image-1.jpg" data-color="orange">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item dropdown">
-            <a href="{{path('home')}}" class="nav-link" id="navbarDropdownMenuLink1" >
-              {# <i class="now-ui-icons design_app"></i> #}
-              <p>Accueil</p>
-            </a>
-          </li>
-          {% if app.user %}
-          <li class="nav-item">
-            <a href="{{path('trick_new')}}" class="nav-link" id="navbarDropdownMenuLink">
-              <i class="now-ui-icons files_paper" aria-hidden="true"></i>
-              <p>Formulaire ajout de figure</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{path('user_my_account', {userId: app.user.id})}}" class="nav-link" id="navbarDropdownMenuLink">
-              <i class="now-ui-icons users_circle-08" aria-hidden="true"></i>
-              <p>Mon Compte</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{path('app_logout')}}" class="nav-link" id="navbarDropdownMenuLink">
-              <i class="now-ui-icons ui-1_simple-remove" aria-hidden="true"></i>
-              <p>Déconnexion</p>
-            </a>
-          </li>
-          {% else %}
-          <li class="nav-item">
-            <a class="nav-link btn btn-primary" href="{{path('app_login')}}">
-              <p>Connexion</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link btn btn-primary" href="{{path('user_registration')}}">
-              <p>Inscription</p>
-            </a>
-          </li>
-          {% endif %}
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <!-- End Navbar -->
-
-{% for label ,messages in app.flashes %}
+    <nav class="navbar navbar-expand-lg bg-white fixed-top navbar-transparent" color-on-scroll="500">
         <div class="container">
-            <div class="alert alert-{{ label }}">
-                {% for message in messages %}
-                    <p>{{ message }}</p>
-                {% endfor %}
+            <div class="navbar-translate">
+                <a class="navbar-brand" href="{{path('home')}}" rel="tooltip" title="" data-placement="bottom" target="_blank">
+                    Snow tricks
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-bar top-bar"></span>
+                    <span class="navbar-toggler-bar middle-bar"></span>
+                    <span class="navbar-toggler-bar bottom-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" data-nav-image="./assets/img//blurred-image-1.jpg" data-color="orange">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a href="{{path('home')}}" class="nav-link" id="navbarDropdownMenuLink1" >
+                            <p>Accueil</p>
+                        </a>
+                    </li>
+                    {% if app.user %}
+                        <li class="nav-item">
+                            <a href="{{path('trick_new')}}" class="nav-link" id="navbarDropdownMenuLink">
+                                <i class="now-ui-icons files_paper" aria-hidden="true"></i>
+                                <p>Formulaire ajout de figure</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{path('user_my_account', {userId: app.user.id})}}" class="nav-link" id="navbarDropdownMenuLink">
+                                <i class="now-ui-icons users_circle-08" aria-hidden="true"></i>
+                                <p>Mon Compte</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{path('app_logout')}}" class="nav-link" id="navbarDropdownMenuLink">
+                                <i class="now-ui-icons ui-1_simple-remove" aria-hidden="true"></i>
+                                <p>Déconnexion</p>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary" href="{{path('app_login')}}">
+                                <p>Connexion</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary" href="{{path('user_registration')}}">
+                                <p>Inscription</p>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
             </div>
         </div>
+    </nav>
+<!-- End Navbar -->
+
+{% for label ,messages in app.flashes %}
+    <div class="container">
+        <div class="alert alert-{{ label }}">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    </div>
 {% endfor %}
