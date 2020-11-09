@@ -33,11 +33,6 @@ class Image
     private $url;
 
     /**
-     * @ORM\Column(type="text", nullable=true, nullable=true)
-     */
-    private $caption;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="images")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -52,11 +47,6 @@ class Image
     public function getFile()
     {
         return $this->file;
-    }
-
-    public function setFile(UploadedFile $file = null)
-    {
-        $this->file = $file;
     }
 
     public function getId(): ?int
@@ -84,18 +74,6 @@ class Image
     public function setUrl(string $url): self
     {
         $this->url = $url;
-
-        return $this;
-    }
-
-    public function getCaption(): ?string
-    {
-        return $this->caption;
-    }
-
-    public function setCaption(?string $caption): self
-    {
-        $this->caption = $caption;
 
         return $this;
     }

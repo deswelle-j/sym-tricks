@@ -3,41 +3,46 @@
 {% endblock %}
 
 {% block _trick_images_widget %}
-    <p>Ajouter une image</p>
-
-    {{ form_widget(form) }}
-    
-    <input type="hidden" id="widgets-counter" value="0">
-    <button type="button" id="add-image">Ajouter une image</button>
+    <div class="row">
+        {{ form_widget(form) }}
+    </div>
+    <div class="row">
+        <input type="hidden" id="widgets-counter" value="0">
+        <button type="button" id="add-image">Ajouter une image</button>    
+    </div>
 
 {% endblock %}
 
 {% block _trick_images_entry_widget %}
-    <div class="form-group" id="block_{{id}}">
-        <div class="row">
-            <div class="col-10">
-                <div class="col">
-                    {{ form_label(form.file) }}
-                    {{ form_errors(form.file) }}
-                    {{ form_widget(form.file) }}
+    <div class="form-group col-md-6 col-lg-4" id="block_{{id}}">
+        <div class="col-md-10">
+            <div class="card card-blog">
+                <div class="card-image">
+                    <img class="img rounded" src="{{ asset('/uploads/' ~ form.url.vars.value ) }}" alt="" width="300">
+                    {{ form_widget(form.url, { 'attr': {'visibility': 'hidden'} }) }}
                 </div>
-                <div>
-                <img src="{{ asset('/uploads/' ~ form.url.vars.value ) }}" alt="" width="300">
-                {{ form_widget(form.url, { 'attr': {'visibility': 'hidden'} }) }}
+                <div class="card-body">                        
+                    <h5 class="card-title">
+                        {{ form_label(form.title) }}
+                        {{ form_widget(form.title, {'attr': {'class': 'trick-card-title'}}) }}
+                        {{ form_errors(form.title, {'attr': {'class': 'trick-card-title'}}) }}
+                    </h5>
+                    <p class="card-description">
+                        {{ form_label(form.file) }}
+                        {{ form_errors(form.file) }}
+                        {{ form_widget(form.file, {'attr': {'class': 'trick-card-image'}}) }}
+                    </p>
+                    <div class="card-footer">
+                        <div class="author">                                
+                            <div class="col-2">
+                                <button type="button" class="btn btn-danger" data-action="delete-image" data-target="#block_{{id}}">X</button>
+                            </div>
+                        </div>
+                        <div class="stats stats-right">
+                            <i class="now-ui-icons tech_watch-time"></i> 5 min read
+                        </div>
+                    </div>
                 </div>
-                <div class="col">
-                    {{ form_label(form.title) }}
-                    {{ form_widget(form.title) }}
-                    {{ form_errors(form.title) }}
-                </div>
-                <div class="col">
-                    {{ form_label(form.caption) }}
-                    {{ form_widget(form.caption) }}
-                    {{ form_errors(form.caption) }}
-                </div>
-            </div>
-            <div class="col-2">
-                <button type="button" class="btn btn-danger" data-action="delete-image" data-target="#block_{{id}}">X</button>
             </div>
         </div>
     </div>
