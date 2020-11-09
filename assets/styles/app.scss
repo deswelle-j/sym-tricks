@@ -1624,7 +1624,9 @@
   .trick-card-image {
     top: initial !important;
     bottom: initial !important;
+    height: initial !important;
   }
 
-
-  
+  .trick-card-title {
+    width: 100% !important;
+  }
