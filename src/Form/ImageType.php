@@ -25,7 +25,6 @@ class ImageType extends AbstractType
                 'mapped' => false,
                 'required' =>false
             ])
-            ->add('caption')
         ;
     }
 

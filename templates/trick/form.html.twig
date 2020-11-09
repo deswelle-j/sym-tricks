@@ -41,28 +41,13 @@
         <div class="section">
             <div class="container">
                 {{ form_start(form) }}
-                
-                
-                <div class="row">
-                    <div class="row">
-                        {{ form_widget(form.images) }}
-                        {# {% for image in trick.images %}
-                            <div class="col-md-6 col-lg-4">
-                                <div class="card card-blog card-plain">
-                                    <div class="card-image">
-                                        <img class="img rounded img-raised" src="{{asset('/uploads/' ~ image.url)}}">
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %} #}
-                    </div>
+                        {{ form_widget(form.images, {'attr': {'class': 'row'}}) }}
                     <div class="col-md-8 ml-auto mr-auto">
                         {# <h3 class="title">{{trick.title}}</h3>
                         <p>description: {{ trick.description }}</p>
                         <p>date de de creation: {{ trick.creationDate |date("m/d/Y")}}</p>
                         <p>date de modification: {{ trick.modificationdate |date("m/d/Y")}}</p> #}
                     </div>
-                </div>
                 {{ form_widget(form)}}
                 <button type="submit"> Creer la figure</button>
                 {{ form_end(form)}}
