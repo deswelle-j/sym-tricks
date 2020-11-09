@@ -3,8 +3,6 @@
 {% endblock %}
 
 {% block _trick_images_widget %}
-    <p>Ajouter une image</p>
-
     {{ form_widget(form) }}
     
     <input type="hidden" id="widgets-counter" value="0">
@@ -13,10 +11,91 @@
 {% endblock %}
 
 {% block _trick_images_entry_widget %}
+    {# <div class="card card-blog">
+        <div class="card-image">
+            <a href="#pablo">
+                <img class="img rounded" src="assets/img/card-blog2.jpg">
+                <img class="img rounded" src="{{ asset('/uploads/' ~ form.url.vars.value ) }}" alt="" width="300">
+                {{ form_widget(form.url, { 'attr': {'visibility': 'hidden'} }) }}
+            </a>
+        </div>
+        <div class="card-body">
+            <h6 class="category text-primary">Features</h6>
+            <h5 class="card-title">
+                That’s One Way To Ditch Your Passenger
+                {{ form_label(form.title) }}
+                {{ form_widget(form.title) }}
+                {{ form_errors(form.title) }}
+            </h5>
+            <p class="card-description">
+                As near as we can tell, this guy must have thought he was going over backwards and tapped the rear...
+                {{ form_label(form.caption) }}
+                {{ form_widget(form.caption) }}
+                {{ form_errors(form.caption) }}
+            </p>
+            <div class="card-footer">
+                <div class="author">
+                    <img src="assets/img/julie.jpg" alt="..." class="avatar img-raised">
+                    <span>Mike John</span>
+                    <div class="col-2">
+                        <button type="button" class="btn btn-danger" data-action="delete-image" data-target="#block_{{id}}">X</button>
+                    </div>
+
+                </div>
+                <div class="stats stats-right">
+                    <i class="now-ui-icons tech_watch-time"></i> 5 min read
+                </div>
+            </div>
+        </div>
+    </div> #}
+
     <div class="form-group" id="block_{{id}}">
-        <div class="row">
-            <div class="col-10">
-                <div class="col">
+        {# <div class="row"> #}
+            <div class="col-md-10">
+                    <div class="card card-blog">
+                        <div class="card-image">
+                            {# <a href="#pablo"> #}
+                                {# <img class="img rounded" src="assets/img/card-blog2.jpg"> #}
+                                <img class="img rounded" src="{{ asset('/uploads/' ~ form.url.vars.value ) }}" alt="" width="300">
+                                {{ form_widget(form.url, { 'attr': {'visibility': 'hidden'} }) }}
+                            {# </a> #}
+                        </div>
+                        <div class="card-body">
+                            
+                            <h5 class="card-title">
+                                {# That’s One Way To Ditch Your Passenger #}
+                                {{ form_label(form.title) }}
+                                {{ form_widget(form.title) }}
+                                {{ form_errors(form.title) }}
+                            </h5>
+                            <p class="card-description">
+                                {# As near as we can tell, this guy must have thought he was going over backwards and tapped the rear... #}
+                                {{ form_label(form.caption) }}
+                                {{ form_widget(form.caption) }}
+                                {{ form_errors(form.caption) }}
+                            </p>
+                            {{ form_label(form.file) }}
+                            {{ form_errors(form.file) }}
+                            {{ form_widget(form.file, {'attr': {'class': 'trick-card-image'}}) }}
+                            <div class="card-footer">
+                                <div class="author">
+                                    
+                                    {# <img src="assets/img/julie.jpg" alt="..." class="avatar img-raised">
+                                    <span>Mike John</span> #}
+                                    <div class="col-2">
+                                        <button type="button" class="btn btn-danger" data-action="delete-image" data-target="#block_{{id}}">X</button>
+                                    </div>
+
+                                </div>
+                                <div class="stats stats-right">
+                                    <i class="now-ui-icons tech_watch-time"></i> 5 min read
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+
+                {# <div class="col">
                     {{ form_label(form.file) }}
                     {{ form_errors(form.file) }}
                     {{ form_widget(form.file) }}
@@ -35,10 +114,12 @@
                     {{ form_widget(form.caption) }}
                     {{ form_errors(form.caption) }}
                 </div>
-            </div>
-            <div class="col-2">
+            </div> #}
+
+
+            {# <div class="col-2">
                 <button type="button" class="btn btn-danger" data-action="delete-image" data-target="#block_{{id}}">X</button>
-            </div>
-        </div>
+            </div> #}
+        {# </div> #}
     </div>
 {% endblock %}
