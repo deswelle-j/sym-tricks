@@ -3,64 +3,70 @@
 {% block title %}{{parent()}} Home{% endblock %}
 
 {% block body %}
-<div class="wrapper">
-    <div class="page-header clear-filter" filter-color="blue">
-      {# <div class="rellax-header rellax-header-sky" data-rellax-speed="-4">
-        <div class="page-header-image" style="background-image: url('./assets/HomePageHeader_1600x1200_Snowboard_Eric_Beauchemin.jpg')">
+    <div class="wrapper">
+        <div class="page-header clear-filter" filter-color="blue">
+            {# <div class="rellax-header rellax-header-sky" data-rellax-speed="-4">
+            <div class="page-header-image" style="background-image: url('./assets/HomePageHeader_1600x1200_Snowboard_Eric_Beauchemin.jpg')">
+            </div>
+            </div> #}
+            <div class="rellax-header rellax-header-buildings" data-rellax-speed="0">
+                <div class="page-header-image page-header-city" style="background-image: url('./assets/HomePageHeader_1600x1200_Snowboard_Eric_Beauchemin.jpg')">
+            </div>
+            <div class="rellax-text-container">
+                <h1 class="h1-seo rellax-text" data-rellax-speed="-1">Bienvenue sur SnowTrick</h1>
+            </div>
+            <div class="arrow-container">
+                <a data-scroll href="#tricks-list" class="ct-btn-scroll ct-js-btn-scroll arrow-scroll-down">
+                    <div class="arrow"></div>
+                </a>
+            </div>
         </div>
-      </div> #}
-      <div class="rellax-header rellax-header-buildings" data-rellax-speed="0">
-        <div class="page-header-image page-header-city" style="background-image: url('./assets/HomePageHeader_1600x1200_Snowboard_Eric_Beauchemin.jpg')">
-        </div>
-        <div class="rellax-text-container">
-        <h1 class="h1-seo rellax-text" data-rellax-speed="-1">Bienvenue sur SnowTrick</h1>
-      </div>
-      </div>
     </div>
-    
-<div class="cards">
-          <div class="container">
-            <div class="title">
-              <h3>
-                <small>La liste de toutes les figures</small>
-              </h3>
+
+    <div class="cards">
+        <div class="container">
+            <div class="title" id="tricks-list">
+                <h3>
+                    <small>La liste de toutes les figures</small>
+                </h3>
             </div>
             <div class="row">
-              {% for trick in tricks %}
-              <div class="col-md-4">
-                {% if trick.images|length > 0 %}
-                  {% set image = trick.images|first %}
-                  <div class="card card-background" style="background-image: url({{asset('/uploads/' ~ image.url)}})">
-                {% else %}
-                  <div class="card card-background" style="background-image: url({{asset('/assets/freestyle-snowboards-back-grab-1-5f9be0af06385.jpeg')}})">
-                {% endif %}
-                  <div class="card-body">
-                    <div class="card-title text-left">
-                      <h3>
-                        <a class="text-light" href="{{ path('trick_show', {slug: trick.slug}) }}">{{ trick.title}}</a>
-                        
-                      </h3>
-                      <span>{% if is_granted('ROLE_USER') %}
-                          <a class="text-light" href="{{ path('trick_edit', {slug: trick.slug}) }}">
-                            <i class="now-ui-icons ui-2_settings-90"></i>  
-                          </a>
-                          <a class="text-light" href="{{ path('trick_delete', {id: trick.id, _csrf_token: csrf_token('delete')}) }}">
-                            <i class="now-ui-icons ui-1_simple-remove"></i>
-                          </a>
-                        {% endif %}</span>
+                {% for trick in tricks %}
+                    <div class="col-md-4">
+                        {% if trick.images|length > 0 %}
+                            {% set image = trick.images|first %}
+                        <div class="card card-background" style="background-image: url({{asset('/uploads/' ~ image.url)}})">
+                        {% else %}
+                        <div class="card card-background" style="background-image: url({{asset('/assets/freestyle-snowboards-back-grab-1-5f9be0af06385.jpeg')}})">
+                        {% endif %}
+                            <div class="card-body">
+                                <div class="card-title text-left">
+                                    <h3>
+                                        <a class="text-light" href="{{ path('trick_show', {slug: trick.slug}) }}">{{ trick.title}}</a>
+                                    </h3>
+                                    <span>
+                                        {% if is_granted('ROLE_USER') %}
+                                        <a class="text-light" href="{{ path('trick_edit', {slug: trick.slug}) }}">
+                                            <i class="now-ui-icons ui-2_settings-90"></i>  
+                                        </a>
+                                        <a class="text-light" href="{{ path('trick_delete', {id: trick.id, _csrf_token: csrf_token('delete')}) }}">
+                                            <i class="now-ui-icons ui-1_simple-remove"></i>
+                                        </a>
+                                        {% endif %}
+                                    </span>
+                                </div>
+                                <div class="card-footer text-left">
+                                    <div class="stats-link">
+                                        <a href="#pablo" class="footer-link">{{ trick.groupTrick.name }}</a>
+                                    </div>
+                                    <div class="stats stats-right">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-footer text-left">
-                      <div class="stats-link">
-                        <a href="#pablo" class="footer-link">{{ trick.groupTrick.name }}</a>
-                      </div>
-                      <div class="stats stats-right">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {% endfor %}
+                {% endfor %}
             </div>
-          </div>
         </div>
+    </div>
 {% endblock %}
