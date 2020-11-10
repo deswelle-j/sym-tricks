@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}{{parent()}} Home{% endblock %}
 
 {% block body %}
 <div class="wrapper">
@@ -31,11 +31,9 @@
                 {% if trick.images|length > 0 %}
                   {% set image = trick.images|first %}
                   <div class="card card-background" style="background-image: url({{asset('/uploads/' ~ image.url)}})">
-                  {# <img class="d-block w-100" src="{{asset('/uploads/' ~ image.url)}}" alt="First slide"> #}
                 {% else %}
                   <div class="card card-background" style="background-image: url({{asset('/assets/freestyle-snowboards-back-grab-1-5f9be0af06385.jpeg')}})">
                 {% endif %}
-                {# <div class="card card-background" style="background-image: url('assets/img/bg3.jpg')"> #}
                   <div class="card-body">
                     <div class="card-title text-left">
                       <h3>
@@ -44,11 +42,9 @@
                       </h3>
                       <span>{% if is_granted('ROLE_USER') %}
                           <a class="text-light" href="{{ path('trick_edit', {slug: trick.slug}) }}">
-                            {# <img src="{{asset('/assets/pencil-icon_34383.png')}}" alt="" style="width=40px"> #}
                             <i class="now-ui-icons ui-2_settings-90"></i>  
                           </a>
                           <a class="text-light" href="{{ path('trick_delete', {id: trick.id, _csrf_token: csrf_token('delete')}) }}">
-                            {# <img src="{{asset('/assets/trash-can_38501.png')}}" alt="" style="width=40px"> #}
                             <i class="now-ui-icons ui-1_simple-remove"></i>
                           </a>
                         {% endif %}</span>
