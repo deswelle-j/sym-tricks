@@ -9,6 +9,7 @@ use App\Form\RegistrationType;
 use App\Form\PasswordResetType;
 use App\Service\UploaderHelper;
 use App\Event\RegistrationEvent;
+use App\Form\PasswordUpdateType;
 use App\Event\ResetPasswordEvent;
 use App\Repository\UserRepository;
 use App\Form\PasswordForgottenType;
@@ -134,6 +135,50 @@ class UserController extends AbstractController
             'user' => $user
         ]);
     }
+
+    /**
+     * @Route("/password-update/{userId}", name="user_password_update")
+     */
+    public function passwordUpdate($userId, UserRepository $repo, Request $request, UserPasswordEncoderInterface $encoder)
+    {
+        $user = $repo->findOneById($userId);
+
+        $form = $this->createForm(PasswordUpdateType::class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            
+            $oldPassword =  $form['oldPassword']->getData();
+            if($encoder->isPasswordValid($user, $oldPassword))
+            {
+                $hash = $encoder->encodePassword($user, $form['hash']->getData());
+                $user->setHash($hash);
+
+                $manager = $this->getDoctrine()->getManager();
+                $manager->persist($user);
+                $manager->flush();
+
+                $this->addFlash(
+                    'success',
+                    'Votre compte a bien été mis a jour'
+                );
+
+                return $this->redirectToRoute('user_my_account', array('userId' => $userId));
+            }
+            $this->addFlash(
+                'warning',
+                'Le mot de passe d\'origine est incorrect'
+            );
+
+        }
+
+        return $this->render('user/passwordUpdate.html.twig', [
+            'form' => $form->createView(),
+            'user' => $user
+        ]);
+    }
+
+
 
     /**
      * @Route("/reset/{userId}/token={token}", name="user_reset_password")
