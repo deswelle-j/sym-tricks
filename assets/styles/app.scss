@@ -713,10 +713,10 @@
     background: #220c08;
   }
   
-  .presentation-page .page-header,
-  .index-page .page-header {
-    background: #a8cbd0;
-  }
+  // .presentation-page .page-header,
+  // .index-page .page-header {
+  //   // background: #a8cbd0;
+  // }
   
   .index-page .rellax-text-container {
     top: 22%;
@@ -1629,4 +1629,8 @@
 
   .trick-card-title {
     width: 100% !important;
+  }
+
+  .input-group-text {
+    color : #FFFFFF !important;
   }
