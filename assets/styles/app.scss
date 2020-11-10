@@ -1634,3 +1634,32 @@
   .input-group-text {
     color : #FFFFFF !important;
   }
+
+  .arrow {
+    box-sizing: border-box;
+    height: 5vw;
+    width: 5vw;
+    border-style: solid;
+    border-color: white;
+    border-width: 0px 5px 5px 0px;
+    transform: rotate(45deg);
+    transition: border-width 150ms ease-in-out;
+  }
+  
+  .arrow:hover {
+    border-bottom-width: 10px;
+    border-right-width: 10px;
+  }
+
+  .arrow-container {
+    position: absolute;
+    bottom: 5vw;
+    right: 5vw;
+    height: 6vw;
+    width: 6vw;
+
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
