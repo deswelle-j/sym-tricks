@@ -1635,7 +1635,7 @@
     color : #FFFFFF !important;
   }
 
-  .arrow {
+  .arrow-down {
     box-sizing: border-box;
     height: 5vw;
     width: 5vw;
@@ -1645,14 +1645,39 @@
     transform: rotate(45deg);
     transition: border-width 150ms ease-in-out;
   }
+
+  .arrow-up {
+    box-sizing: border-box;
+    height: 5vw;
+    width: 5vw;
+    border-style: solid;
+    border-color: #2c2c2c;
+    border-width: 5px 0px 0px 5px;
+    transform: rotate(45deg);
+    transition: border-width 150ms ease-in-out;
+  }
   
-  .arrow:hover {
+  .arrow-down:hover {
     border-bottom-width: 10px;
     border-right-width: 10px;
   }
 
-  .arrow-container {
+  .arrow-up:hover {
+    border-top-width: 10px;
+    border-left-width: 10px;
+  }
+
+  .arrow-down-container {
     position: absolute;
+    bottom: 5vw;
+    right: 5vw;
+    height: 6vw;
+    width: 6vw;
+
+  }
+
+  .arrow-up-container {
+    position: fixed;
     bottom: 5vw;
     right: 5vw;
     height: 6vw;
