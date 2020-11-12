@@ -4,6 +4,7 @@ namespace App\EventListener;
 
 use App\Event\RegistrationEvent;
 use Symfony\Component\Mime\Email;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -28,13 +29,17 @@ class UserMailingListener
         $token = $user->getToken();
         $userId = $user->getId();
         $url = $this->router->generate('user_token_verify', ['userId' => $userId, 'token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
-        $email = (new Email())
+        $email = (new TemplatedEmail())
             ->from($this->send_email)
             ->to($user->getEmail())
             ->priority(Email::PRIORITY_HIGH)
             ->subject('Inscription sur Snowtrick')
+            ->context([
+                'user' => $user,
+                'token' => $token
+            ])
             ->text("{$url}")
-            ->html('<p>See Twig integration for better HTML integration!</p>');
+            ->htmlTemplate('email/welcome.html.twig');
 
         $this->mailer->send($email);
     }
