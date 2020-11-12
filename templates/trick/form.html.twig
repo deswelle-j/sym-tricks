@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TrickController!{% endblock %}
+{% block title %}{{parent()}} Ajout d'une figure{% endblock %}
 
 {% form_theme  form with [
     'trick/_collectionImage.html.twig',
@@ -9,27 +9,9 @@
 
 {% block body %}
 
-{# <div class="example-wrapper">
-    <h1>Formulaire d'ajoute de figure</h1>
-
-    {{ form_start(form) }}
-    {{ form_widget(form)}}
-    <button type="submit"> Creer la figure</button>
-    {{ form_end(form)}}
-</div> #}
-
 <div class="container">
     <div class="wrapper">
         <div class="page-header page-header-small">
-            
-            {# {% if trick.images|length > 0 %}
-                {% set image = trick.images|first %}
-                <div class="page-header-image-detail" data-parallax="true" style="background-image: url({{asset('/uploads/' ~ image.url)}})">
-                </div>
-            {% else %}
-                <div class="page-header-image-detail" data-parallax="true" style="background-image: url({{asset('/assets/freestyle-snowboards-back-grab-1-5f9be0af06385.jpeg')}})">
-                </div>
-            {% endif %} #}
             <div class="content-center">
                 <div class="row">
                     <div class="col-md-8 ml-auto mr-auto text-center">
@@ -41,15 +23,29 @@
         <div class="section">
             <div class="container">
                 {{ form_start(form) }}
-                        {{ form_widget(form.images, {'attr': {'class': 'row'}}) }}
+                    {{ form_widget(form.images, {'attr': {'class': 'row'}}) }}
+                    {{ form_widget(form.videos, {'attr': {'class': 'row'}}) }}
                     <div class="col-md-8 ml-auto mr-auto">
-                        {# <h3 class="title">{{trick.title}}</h3>
-                        <p>description: {{ trick.description }}</p>
-                        <p>date de de creation: {{ trick.creationDate |date("m/d/Y")}}</p>
-                        <p>date de modification: {{ trick.modificationdate |date("m/d/Y")}}</p> #}
+                        <h3 class="title">
+                            {{ form_label(form.title) }}
+                            {{ form_widget(form.title, {'attr': {'class': 'form-group'}}) }}
+                            {{ form_errors(form.title) }}
+                        </h3>
+                        <p>
+                        {{ form_label(form.description) }}
+                        {{ form_widget(form.description, {'attr': {'class': 'form-control', 'placeholder':"Ecrivez une jolie description de la figure"}}) }}
+                        {{ form_errors(form.description) }}
+                        </p>
+                        <div >
+                        <span class="btn-primary btn-raised btn-round d-inline">
+                            {{ form_label(form.groupTrick) }}
+                            {{ form_widget(form.groupTrick) }}
+                            {{ form_errors(form.groupTrick) }}
+                            </span>
+                        </div>
                     </div>
-                {{ form_widget(form)}}
-                <button type="submit"> Creer la figure</button>
+                    {{ form_widget(form)}}
+                    <button class="btn btn-primary btn-raised btn-round" type="submit">Enregister la figure</button>
                 {{ form_end(form)}}
             </div>
         </div>

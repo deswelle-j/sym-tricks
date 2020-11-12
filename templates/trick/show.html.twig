@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{trick.title}}{% endblock %}
+{% block title %}{{parent()}} {{trick.title}}{% endblock %}
 
 {% block body %}
 <div class="container">
@@ -17,7 +17,20 @@
             <div class="content-center">
                 <div class="row">
                     <div class="col-md-8 ml-auto mr-auto text-center">
-                        <h2 class="title">{{ trick.title }}</h2>
+                        <h2 class="title">
+                            {{ trick.title }} 
+                            <span>
+                                {% if is_granted('ROLE_USER') %}
+                                <a class="text-light" href="{{ path('trick_edit', {slug: trick.slug}) }}">
+                                    <i class="now-ui-icons ui-2_settings-90"></i>  
+                                </a>
+                                <a class="text-light" href="{{ path('trick_delete', {id: trick.id, _csrf_token: csrf_token('delete')}) }}">
+                                    <i class="now-ui-icons ui-1_simple-remove"></i>
+                                </a>
+                                {% endif %}
+                            </span>
+                        </h2>
+                        
                     </div>
                 </div>
             </div>
@@ -26,27 +39,37 @@
             <div class="container">
                 <div class="row">
                         <div class="row">
-                        {% for image in trick.images %}
+                            {% for image in trick.images %}
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="card card-blog card-plain">
+                                        <div class="card-image">
+                                            <img class="img rounded img-raised" src="{{asset('/uploads/' ~ image.url)}}">
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}                
+                        </div>
+                        {% for video in trick.videos %}
                             <div class="col-md-6 col-lg-4">
                                 <div class="card card-blog card-plain">
                                     <div class="card-image">
-                                        <img class="img rounded img-raised" src="{{asset('/uploads/' ~ image.url)}}">
+                                        <iframe width="1280" height="720" src="{{video.link}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                     </div>
                                 </div>
                             </div>
-                        {% endfor %}                
-                        </div>
-                    <ul>
-                            {% for video in trick.videos %}
-                                <li>
-                                    <iframe width="1280" height="720" src="{{video.link}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                </li>
-                            {% endfor %}                
-                    </ul>
+                        {% endfor %}
+                                     
                     <div class="col-md-8 ml-auto mr-auto">
-                        <h3 class="title">The Castle Looks Different at Night...</h3>
+                        <h3 class="title">{{trick.title}}</h3>
                         <p>description: {{ trick.description }}</p>
-                        <p>date de modification: {{ trick.modificationdate |date("m/d/Y")}}</p>
+                        <div >
+                            <p class="btn-primary btn-raised btn-round d-inline">Créé le: {{ trick.creationDate |date("d/m/Y")}}</p>
+                            <p class="btn-primary btn-raised btn-round d-inline">Modifié le: {{ trick.modificationdate |date("d/m/Y")}}</p>
+                            {# <span class="btn btn-primary btn-neutral">
+                                {{ trick.groupTrick.name }}
+                            </span> #}
+                        <span class="btn-primary btn-raised btn-round d-inline">{{ trick.groupTrick.name }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
