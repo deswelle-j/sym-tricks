@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Bienvenue dans la communauté!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f3f3f3;
+            font-family: Helvetica, Arial, sans-serif;
+        }
+        h1 {
+            background-color: #264459;
+            color: #ffffff;
+            padding: 30px 0 50px 0;
+            font-weight: normal;
+        }
+        hr {
+            border: none;
+            border-top: 3px solid #264459;
+            margin: 20px;
+        }
+        .container {
+            background-color: #fefefe;
+            width: 580px;
+            margin: 0 auto;
+        }
+        .bottom {
+            background-color: #efefee;
+        }
+        .block {
+            margin: 0;
+            padding: 10px 20px 20px 20px;
+        }
+        .logo {
+            width: 100%;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #264459;
+            color: #fefefe;
+            border: 1px solid #fff;
+            border-radius: 3px;
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="body">
+    <div class="container">
+        <div class="header text-center">
+        </div>
+        <div class="content">
+            <h1 class="text-center">Nice to meet you {{ user.username }}!</h1>
+            <p class="block">
+                Bienvenue sur <strong>SnowTricks</strong>, le premier site internet communautaire 
+                entièrement dédié aux figure de snowboard.
+            </p>
+            <p class="block">
+                Pour terminer votre incription merci de cliquer sur le bouton ci-dessous
+            </p>
+            <p class="block text-center">
+                <a href="{{ url('user_token_verify', {userId: user.id, token: token}) }}" class="btn">Terminer mon inscription</a>
+            </p>
+            <p class="block">
+                Vous serrez alors redirigé vers le site et pourrez alors vous connectez pour profiter de toutes
+                les fonctionnalités.
+            </p>
+        </div>
+        <div class="footer">
+            <p class="block">
+                Amicalement,<br><br>
+                Your friendly <em>SnowTricks Team</em>
+            </p>
+            <p class="block bottom text-center">
+                Envoyé par vos camarades de SnowTricks
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
