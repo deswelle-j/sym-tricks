@@ -10,12 +10,19 @@ use App\Form\CommentType;
 use App\Service\UploaderHelper;
 use App\Repository\UserRepository;
 use App\Repository\TrickRepository;
+use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
 class TrickController extends AbstractController
 {
@@ -24,11 +31,33 @@ class TrickController extends AbstractController
      */
     public function home(TrickRepository $repo)
     {
-        $tricks = $repo->findAll();
+        $tricks = $repo->findBy([], [], 10, 0);
 
         return $this->render('trick/home.html.twig', [
             'tricks' => $tricks
         ]);
+    }
+
+    /**
+     * @Route("/load/{offset}", name="load_more")
+     */
+    public function loadTricks(TrickRepository $repo, $offset)
+    {
+        $limit= 15;
+
+        $tricks = $repo->findBy([], [], $limit, $offset);
+            $serializer = new Serializer([new ObjectNormalizer()]);
+            return new JsonResponse($serializer->normalize($tricks, null, 
+            [AbstractNormalizer::ATTRIBUTES => 
+                [
+                    'id',
+                    'title',
+                    'groupTrick' => ['name'],
+                    'images' => ['url']
+                    ]
+                ]
+            )
+        ); 
     }
 
     /**
@@ -73,6 +102,8 @@ class TrickController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    
 
     /**
      * @Route("/trick/delete/{id}", name="trick_delete")

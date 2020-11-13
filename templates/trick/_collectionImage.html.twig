@@ -6,16 +6,18 @@
     <div class="row">
         {{ form_widget(form) }}
     </div>
-    <div class="row">
+    <div class="">
         <input type="hidden" id="widgets-counter" value="0">
-        <button type="button" id="add-image">Ajouter une image</button>    
+        <button class="btn btn-primary btn-raised btn-round" type="button" id="add-image">
+            Ajouter une nouvelle image
+        </button>    
     </div>
 
 {% endblock %}
 
 {% block _trick_images_entry_widget %}
     <div class="form-group col-md-6 col-lg-4" id="block_{{id}}">
-        <div class="col-md-10">
+        <div class="">
             <div class="card card-blog">
                 <div class="card-image">
                     <img class="img rounded" src="{{ asset('/uploads/' ~ form.url.vars.value ) }}" alt="" width="300">
@@ -37,9 +39,6 @@
                             <div class="col-2">
                                 <button type="button" class="btn btn-danger" data-action="delete-image" data-target="#block_{{id}}">X</button>
                             </div>
-                        </div>
-                        <div class="stats stats-right">
-                            <i class="now-ui-icons tech_watch-time"></i> 5 min read
                         </div>
                     </div>
                 </div>
