@@ -33,31 +33,47 @@ class TrickController extends AbstractController
     {
         $tricks = $repo->findBy([], [], 10, 0);
 
+        $count = count($repo->findAll());
+        $pages = ceil($count / 10); 
+
+
         return $this->render('trick/home.html.twig', [
-            'tricks' => $tricks
+            'tricks' => $tricks,
+            'pages' => $pages
         ]);
     }
 
     /**
-     * @Route("/load/{offset}", name="load_more")
+     * @Route("/load/{page}", name="load_more")
      */
-    public function loadTricks(TrickRepository $repo, $offset)
+    public function loadTricks(TrickRepository $repo, $page)
     {
-        $limit= 15;
+        $limit = 10;
+        $page = $page -1;
+        $offset = ($page * $limit);
 
         $tricks = $repo->findBy([], [], $limit, $offset);
-            $serializer = new Serializer([new ObjectNormalizer()]);
-            return new JsonResponse($serializer->normalize($tricks, null, 
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $tricks = $serializer->normalize($tricks, 'json', 
             [AbstractNormalizer::ATTRIBUTES => 
                 [
                     'id',
                     'title',
+                    'slug',
                     'groupTrick' => ['name'],
                     'images' => ['url']
                     ]
                 ]
-            )
-        ); 
+        );
+        
+        return new JsonResponse([
+                'view' => $this->renderView('trick/tricksLoad.html.twig', [
+                        'tricks' => $tricks,
+                    ]),
+                    'offset' => 3
+                ]);
+                
     }
 
     /**

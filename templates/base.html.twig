@@ -13,8 +13,8 @@
     <body class="index-page sidebar-collapse">
         
         {% include 'commom/header.html.twig' %}
-            {% block body %}{% endblock %}
-            {% block javascripts %}{% endblock %}
+        {% block body %}{% endblock %}
         {{ encore_entry_script_tags('app') }}
+        {% block javascripts %}{% endblock %}
     </body>
 </html>
