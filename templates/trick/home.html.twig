@@ -30,9 +30,9 @@
                     <small>La liste de toutes les figures</small>
                 </h3>
             </div>
-            <div class="row">
+            <div class="row tricks" id="">
                 {% for trick in tricks %}
-                    <div class="col-md-4">
+                    <div class="col-md-4 trick-item">
                         {% if trick.images|length > 0 %}
                             {% set image = trick.images|first %}
                         <div class="card card-background" style="background-image: url({{asset('/uploads/' ~ image.url)}})">
@@ -67,6 +67,9 @@
                     </div>
                 {% endfor %}
             </div>
+                <div class="row text-center pagination">
+                    <a class="btn btn-lgbtn btn-primary btn-round btn-lg btn-block js-load-more" href="#">Load more</a>
+                </div>
         </div>
             <div class="arrow-up-container">
                 <a data-scroll href="#tricks-list" class="ct-btn-scroll ct-js-btn-scroll arrow-scroll-down">
@@ -74,4 +77,17 @@
                 </a>
             </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    let paginationsTrick = [
+        {% for i in 2 .. pages %}
+            "{{ path('load_more', {'page': i })|escape('js') }}" ,
+        {% endfor %}
+    ];
+    index = 0;
+    let routeTrick = paginationsTrick[0];
+    console.log(paginationsTrick);
+</script>
 {% endblock %}
