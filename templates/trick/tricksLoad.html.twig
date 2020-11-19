@@ -1,0 +1,35 @@
+{% for trick in tricks %}
+    <div class="col-md-4 trick-item">
+        {% if trick.images|length > 0 %}
+            {% set image = trick.images|first %}
+        <div class="card card-background" style="background-image: url({{asset('/uploads/' ~ image.url)}})">
+        {% else %}
+        <div class="card card-background" style="background-image: url({{asset('/assets/freestyle-snowboards-back-grab-1-5f9be0af06385.jpeg')}})">
+        {% endif %}
+            <div class="card-body">
+                <div class="card-title text-left">
+                    <h3>
+                        <a class="text-light" href="{{ path('trick_show', {slug: trick.slug}) }}">{{ trick.title}}</a>
+                    </h3>
+                    <span>
+                        {% if is_granted('ROLE_USER') %}
+                        <a class="text-light" href="{{ path('trick_edit', {slug: trick.slug}) }}">
+                            <i class="now-ui-icons ui-2_settings-90"></i>  
+                        </a>
+                        <a class="text-light" href="{{ path('trick_delete', {id: trick.id, _csrf_token: csrf_token('delete')}) }}">
+                            <i class="now-ui-icons ui-1_simple-remove"></i>
+                        </a>
+                        {% endif %}
+                    </span>
+                </div>
+                <div class="card-footer text-left">
+                    <div class="stats-link">
+                        <a href="#pablo" class="footer-link">{{ trick.groupTrick.name }}</a>
+                    </div>
+                    <div class="stats stats-right">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
