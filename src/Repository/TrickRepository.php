@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Trick;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Trick|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,22 +19,36 @@ class TrickRepository extends ServiceEntityRepository
         parent::__construct($registry, Trick::class);
     }
 
+    public function findOneTrickBySlug($value): ?Trick
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.slug = :val')
+            ->setParameter('val', $value)
+            // ->join('t.images', 'i')
+            // ->join('t.videos', 'v')
+            // ->join('t.groupTrick', 'g')
+            // ->select('t.id, t.title, t.description, t.creationDate, t.modification_date')
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
     // /**
     //  * @return Trick[] Returns an array of Trick objects
     //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+    // /*
+    // public function findByExampleField($value)
+    // {
+    //     return $this->createQueryBuilder('t')
+    //         ->andWhere('t.exampleField = :val')
+    //         ->setParameter('val', $value)
+    //         ->orderBy('t.id', 'ASC')
+    //         ->setMaxResults(10)
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
+    // */
 
     /*
     public function findOneBySomeField($value): ?Trick
