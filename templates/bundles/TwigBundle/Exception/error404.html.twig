@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{parent()}} Mot de passe Oublié{% endblock %}
+{% block title %}{{parent()}} Page non trouvée{% endblock %}
 
 {% block body %}
     <div class="page-header header-filter" filter-color="blue">
@@ -10,7 +10,6 @@
             <div class="container">
                 <div class="col-md-5 ml-auto mr-auto">
                     <div class="card card-login card-plain">
-                        {{ form_start(form) }}
                             <div class="card-header text-center">
                                 <div class="logo-container">
                                 </div>
@@ -19,28 +18,19 @@
                                 <div class="input-group no-border input-lg">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
-                                            <i class="now-ui-icons users_circle-08"></i>
+                                            <i class="now-ui-icons health_ambulance"></i>
                                         </span>
                                     </div>
-                                    <span class="form-control">Entrez-votre addresse mail </br>Afain de recevoir un lien de changement de mot de passe</span>
+                                    <span class="form-control"><h6>OUPS !!</h6>La page que vous recherchez n'existe pas ou plus!</span>
                                 </div>
-                                <div class="input-group no-border input-lg">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="now-ui-icons ui-1_email-85"></i>
-                                        </span>
-                                    </div>
-                                    {{ form_errors(form.email) }}
-                                    {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder':"Email..."}}) }}
-                                </div>
+  
                                 <div class="input-group no-border input-lg">
                                 </div>
                             </div>
                             <div class="card-footer text-center">
-                                <button class="btn btn-lgbtn btn-primary btn-round btn-lg btn-block" type="submit">Envoyer</button>
+                                <a class="btn btn-lgbtn btn-primary btn-round btn-lg btn-block" href="{{path('home')}}">Retour à l'accueil</a>
                             </div>
                             <div class="pull-left"></div>
-                        {{ form_end(form) }}
                     </div>
                 </div>
             </div>
