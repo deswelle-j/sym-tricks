@@ -6,6 +6,7 @@ use App\Event\RegistrationEvent;
 use Symfony\Component\Mime\Email;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Crypto\SMimeSigner;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class UserMailingListener
@@ -41,6 +42,9 @@ class UserMailingListener
             ->text("{$url}")
             ->htmlTemplate('email/welcome.html.twig');
 
-        $this->mailer->send($email);
+            $signer = new SMimeSigner('/path/to/certificate.crt', '/path/to/certificate-private-key.key');
+            $signedEmail = $signer->sign($email);
+            $this->mailer->send($signedEmail);
+        
     }
 }
