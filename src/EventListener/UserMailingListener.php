@@ -42,9 +42,6 @@ class UserMailingListener
             ->text("{$url}")
             ->htmlTemplate('email/welcome.html.twig');
 
-            $signer = new SMimeSigner('/path/to/certificate.crt', '/path/to/certificate-private-key.key');
-            $signedEmail = $signer->sign($email);
-            $this->mailer->send($signedEmail);
-        
+            $this->mailer->send($email);      
     }
 }

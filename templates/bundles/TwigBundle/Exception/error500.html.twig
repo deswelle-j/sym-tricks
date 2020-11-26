@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} Page non trouvée{% endblock %}
+
+{% block body %}
+    <div class="page-header header-filter" filter-color="blue">
+        <div class="page-header-image" style="background-image:url({{asset('/assets/snowboarding-1734841_1920.jpg')}})">
+        </div>
+        <div class="content">
+            <div class="container">
+                <div class="col-md-5 ml-auto mr-auto">
+                    <div class="card card-login card-plain">
+                            <div class="card-header text-center">
+                                <div class="logo-container">
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="input-group no-border input-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="now-ui-icons health_ambulance"></i>
+                                        </span>
+                                    </div>
+                                    <span class="form-control"><h6>OUPS !!</h6>Une erreur est survenue.</span>
+                                </div>
+  
+                                <div class="input-group no-border input-lg">
+                                </div>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a class="btn btn-lgbtn btn-primary btn-round btn-lg btn-block" href="{{path('home')}}">Retour à l'accueil</a>
+                            </div>
+                            <div class="pull-left"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

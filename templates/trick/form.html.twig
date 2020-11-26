@@ -37,11 +37,15 @@
                         {{ form_errors(form.description) }}
                         </p>
                         <div >
-                        <span class="btn-primary btn-raised btn-round d-inline">
-                            {{ form_label(form.groupTrick) }}
-                            {{ form_widget(form.groupTrick) }}
-                            {{ form_errors(form.groupTrick) }}
-                            </span>
+                            <div class="dropdown bootstrap-select show-tick">
+                                <div class=" btn btn-primary btn-round btn-block"> 
+                                    <div class="filter-option-inner">
+                                        {{ form_label(form.groupTrick) }}
+                                        {{ form_widget(form.groupTrick, {'attr': {'class': 'filter-option-inner-inner'}}) }}
+                                        {{ form_errors(form.groupTrick) }}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     {{ form_widget(form)}}
