@@ -76,21 +76,23 @@ class UserController extends AbstractController
 
             if($form->get('email')->getData()) {
                 $email = $form->get('email')->getData();
-                $user = $repo->findOneByEmail($email);
-                $user->setToken(bin2hex(random_bytes(60)));
+                if ($repo->findOneByEmail($email)) {
+                    $user = $repo->findOneByEmail($email);
+                    $user->setToken(bin2hex(random_bytes(60)));
 
-                $manager = $this->getDoctrine()->getManager();
-                $manager->persist($user);
-                $manager->flush();
+                    $manager = $this->getDoctrine()->getManager();
+                    $manager->persist($user);
+                    $manager->flush();
 
-                $userEvent = new ResetPasswordEvent($user);
-    
-                $dispatcher->dispatch($userEvent, ResetPasswordEvent::NAME);
-                
-                $this->addFlash(
-                    'success',
-                    'Un email de réinitialisation va vous être envoyé'
-                );
+                    $userEvent = new ResetPasswordEvent($user);
+        
+                    $dispatcher->dispatch($userEvent, ResetPasswordEvent::NAME);
+                    
+                }
+                    $this->addFlash(
+                        'success',
+                        'Un email de réinitialisation va vous être envoyé'
+                    );
             }
         }
 
