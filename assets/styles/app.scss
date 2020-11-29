@@ -1675,7 +1675,6 @@
     width: 6vw;
 
   }
-
   .arrow-up-container {
     position: fixed;
     bottom: 5vw;
@@ -1683,6 +1682,13 @@
     height: 6vw;
     width: 6vw;
 
+  }
+  .alert {
+    position: absolute;
+    top: 10%;
+  }
+  .alert .success{
+    background-color: rgb(15 206 144 / 80%);
   }
 
   html {
