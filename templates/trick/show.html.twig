@@ -48,26 +48,22 @@
                                     </div>
                                 </div>
                             {% endfor %}                
-                        </div>
-                        {% for video in trick.videos %}
-                            <div class="col-md-6 col-lg-4">
-                                <div class="card card-blog card-plain">
-                                    <div class="card-image">
-                                        <iframe width="1280" height="720" src="{{video.link}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            {% for video in trick.videos %}
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="card card-blog card-plain">
+                                        <div class="card-image">
+                                            <iframe class="card-video" src="{{video.link}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        {% endfor %}
-                                     
+                            {% endfor %}
+                        </div>            
                     <div class="col-md-8 ml-auto mr-auto">
                         <h3 class="title">{{trick.title}}</h3>
                         <p>description: {{ trick.description }}</p>
                         <div >
                             <p class="btn-primary btn-raised btn-round d-inline">Créé le: {{ trick.creationDate |date("d/m/Y")}}</p>
                             <p class="btn-primary btn-raised btn-round d-inline">Modifié le: {{ trick.modificationdate |date("d/m/Y")}}</p>
-                            {# <span class="btn btn-primary btn-neutral">
-                                {{ trick.groupTrick.name }}
-                            </span> #}
                         <span class="btn-primary btn-raised btn-round d-inline">{{ trick.groupTrick.name }}</span>
                         </div>
                     </div>
@@ -99,10 +95,10 @@
                             </div>
                         {% endif %} 
                         <div class="media-area">
-                            {% if trick.comments|length > 0 %}
-                                <h3 class="title text-center">{{trick.comments|length}} Commentaire(s)</h3>
-                                {% for comment in trick.comments %}
-                                    <div class="media">
+                            {% if comments|length > 0 %}
+                                <h3 class="title text-center">{{nbComments}} Commentaire(s)</h3>
+                                {% for comment in comments %}
+                                    <div class="media comment-item">
                                         <a class="pull-left" href="#pablo">
                                             <div class="avatar">
                                                 {% if comment.author.avatarPath %}
@@ -122,6 +118,9 @@
                                         </div>
                                     </div>
                                 {% endfor %}
+                                <div class="row text-center pagination">
+                                    <a class="btn btn-lgbtn btn-primary btn-round btn-lg btn-block js-load-more-comment" href="#">Load more</a>
+                                 </div>
                             {% else %}
                              <h3 class="title text-center">Connectez-vous pour commenter</h3>
                             {% endif %}
@@ -132,4 +131,16 @@
         </div>
     </div>
 </div>
+{% endblock %}
+{% block javascripts %}
+<script>
+    let paginationsComment = [
+        {% for i in 2 .. pages %}
+            "{{ path('load_more_comment', {'page': i, 'trickId': trick.id })|escape('js') }}" ,
+        {% endfor %}
+    ];
+    index = 0;
+    let routeComment = paginationsComment[0];
+    {# console.log(paginationsComment); #}
+</script>
 {% endblock %}

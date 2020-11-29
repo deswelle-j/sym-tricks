@@ -10,8 +10,10 @@
 {% block body %}
 
 <div class="container">
+                {{ form_start(form) }}
     <div class="wrapper">
         <div class="page-header page-header-small">
+            
             <div class="content-center">
                 <div class="row">
                     <div class="col-md-8 ml-auto mr-auto text-center">
@@ -22,7 +24,6 @@
         </div>
         <div class="section">
             <div class="container">
-                {{ form_start(form) }}
                     {{ form_widget(form.images, {'attr': {'class': 'row'}}) }}
                     {{ form_widget(form.videos, {'attr': {'class': 'row'}}) }}
                     <div class="col-md-8 ml-auto mr-auto">

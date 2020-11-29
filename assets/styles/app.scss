@@ -1675,7 +1675,6 @@
     width: 6vw;
 
   }
-
   .arrow-up-container {
     position: fixed;
     bottom: 5vw;
@@ -1684,7 +1683,22 @@
     width: 6vw;
 
   }
+  .alert {
+    position: absolute;
+    top: 10%;
+  }
+  .alert .success{
+    background-color: rgba(15, 206, 144, 0.8);
+  }
 
   html {
     scroll-behavior: smooth;
+  }
+
+  .card .rounded {
+    width: 100%;
+  }
+
+  .card-image .card-video {
+    width: 100%;
   }
