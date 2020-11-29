@@ -7,6 +7,7 @@ use App\Entity\Trick;
 use App\Entity\Comment;
 use App\Form\TrickType;
 use App\Form\CommentType;
+use App\Repository\CommentRepository;
 use App\Service\UploaderHelper;
 use App\Repository\UserRepository;
 use App\Repository\TrickRepository;
@@ -147,9 +148,9 @@ class TrickController extends AbstractController
      *
      * @return Response
      */
-    public function show(Request $request, $slug, TrickRepository $repo, UserRepository $userRepo)
+    public function show(Request $request, $slug, TrickRepository $trickRepo,CommentRepository $commentRepo, UserRepository $userRepo)
     {
-        $trick = $repo->findOneBySlug($slug);
+        $trick = $trickRepo->findOneBySlug($slug);
 
         $comment = new Comment();
 
@@ -163,7 +164,6 @@ class TrickController extends AbstractController
             $user = new User();
             $user = $userRepo->findOneById($userId);
 
-
             $comment->setAuthor($user);
             $comment->setTrick($trick);
 
@@ -173,8 +173,11 @@ class TrickController extends AbstractController
             return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug() ]);
         }
 
+        $comments = $commentRepo->findByTrick($trick->getId());
+
         return $this->render('trick/show.html.twig', [
             'trick' => $trick,
+            'comments' =>$comments,
             'form' => $form->createView()
         ]);
     }

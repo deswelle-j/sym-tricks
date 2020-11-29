@@ -95,9 +95,9 @@
                             </div>
                         {% endif %} 
                         <div class="media-area">
-                            {% if trick.comments|length > 0 %}
-                                <h3 class="title text-center">{{trick.comments|length}} Commentaire(s)</h3>
-                                {% for comment in trick.comments %}
+                            {% if comments|length > 0 %}
+                                <h3 class="title text-center">{{comments|length}} Commentaire(s)</h3>
+                                {% for comment in comments %}
                                     <div class="media">
                                         <a class="pull-left" href="#pablo">
                                             <div class="avatar">
