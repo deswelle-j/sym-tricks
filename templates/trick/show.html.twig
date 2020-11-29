@@ -48,26 +48,22 @@
                                     </div>
                                 </div>
                             {% endfor %}                
-                        </div>
-                        {% for video in trick.videos %}
-                            <div class="col-md-6 col-lg-4">
-                                <div class="card card-blog card-plain">
-                                    <div class="card-image">
-                                        <iframe width="1280" height="720" src="{{video.link}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            {% for video in trick.videos %}
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="card card-blog card-plain">
+                                        <div class="card-image">
+                                            <iframe class="card-video" src="{{video.link}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        {% endfor %}
-                                     
+                            {% endfor %}
+                        </div>            
                     <div class="col-md-8 ml-auto mr-auto">
                         <h3 class="title">{{trick.title}}</h3>
                         <p>description: {{ trick.description }}</p>
                         <div >
                             <p class="btn-primary btn-raised btn-round d-inline">Créé le: {{ trick.creationDate |date("d/m/Y")}}</p>
                             <p class="btn-primary btn-raised btn-round d-inline">Modifié le: {{ trick.modificationdate |date("d/m/Y")}}</p>
-                            {# <span class="btn btn-primary btn-neutral">
-                                {{ trick.groupTrick.name }}
-                            </span> #}
                         <span class="btn-primary btn-raised btn-round d-inline">{{ trick.groupTrick.name }}</span>
                         </div>
                     </div>

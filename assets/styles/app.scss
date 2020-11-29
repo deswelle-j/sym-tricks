@@ -1688,7 +1688,7 @@
     top: 10%;
   }
   .alert .success{
-    background-color: rgb(15 206 144 / 80%);
+    background-color: rgba(15, 206, 144, 0.8);
   }
 
   html {
@@ -1696,5 +1696,9 @@
   }
 
   .card .rounded {
+    width: 100%;
+  }
+
+  .card-image .card-video {
     width: 100%;
   }
