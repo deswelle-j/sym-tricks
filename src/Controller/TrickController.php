@@ -2,23 +2,24 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\User;
 use App\Entity\Trick;
 use App\Entity\Comment;
 use App\Form\TrickType;
 use App\Form\CommentType;
-use App\Repository\CommentRepository;
 use App\Service\UploaderHelper;
 use App\Repository\UserRepository;
 use App\Repository\TrickRepository;
+use App\Repository\CommentRepository;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
@@ -173,12 +174,53 @@ class TrickController extends AbstractController
             return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug() ]);
         }
 
-        $comments = $commentRepo->findByTrick($trick->getId());
+        $nbComment = $commentRepo->countCommentForTrick($trick->getId());
+        $pages = ceil($nbComment/ 10);
+
+        $comments = $commentRepo->findByTrick($trick->getId(), [], 10, 0);
 
         return $this->render('trick/show.html.twig', [
             'trick' => $trick,
             'comments' =>$comments,
+            'nbComments' => $nbComment,
+            'pages' => $pages,
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/loadComments/{page}/trick/{trickId}", name="load_more_comment")
+     */
+    public function loadComments($trickId, CommentRepository $repo, $page)
+    {
+        $limit = 10;
+        $page = $page -1;
+        $offset = ($page * $limit);
+
+        $comments = $repo->findByTrick($trickId, [], $limit, $offset);
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $comments = $serializer->normalize($comments, 'json', 
+            [AbstractNormalizer::ATTRIBUTES => 
+                [
+                    'id',
+                    'content',
+                    'creationDate',
+                    'author' => ['username', 'avatarPath'],
+                    ]
+                ]
+        );
+        foreach($comments as $key => $comment) {
+            $date = new DateTime();
+            $date->setTimestamp($comment['creationDate']['timestamp']);
+            $comments[$key]['creationDate'] = $date->format('m/d/Y à H:i');
+        }
+
+        return new JsonResponse([
+                'view' => $this->renderView('trick/commentsLoad.html.twig', [
+                        'comments' => $comments,
+                    ]),
+                    'offset' => 3
+                ]);         
     }
 }

@@ -36,6 +36,21 @@ class CommentRepository extends ServiceEntityRepository
     }
     */
 
+
+    public function countCommentForTrick($value)
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.trick = :trick')
+            ->setParameter('trick', $value)
+            ->select('COUNT(c.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+        ;
+    }
+
+
+    
+
     /*
     public function findOneBySomeField($value): ?Comment
     {

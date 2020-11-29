@@ -1,0 +1,21 @@
+{% for comment in comments %}
+    <div class="media">
+        <a class="pull-left" href="#pablo">
+            <div class="avatar">
+                {% if comment.author.avatarPath %}
+                    <img class="media-object img-raised" src="{{asset('/uploads/' ~ comment.author.avatarPath)}}" alt="..." />
+                {% else %}
+                    <img class="media-object img-raised" src="https://epicattorneymarketing.com/wp-content/uploads/2016/07/Headshot-Placeholder-1.png" alt="..." />
+                {% endif %}
+            </div>
+        </a>
+        <div class="media-body">
+            <h5 class="media-heading">{{ comment.author.username }}
+                <small class="text-muted">&middot; {{ comment.creationDate}}</small>
+            </h5>
+            <p>{{ comment.content }}</p>
+            <div class="media-footer">
+            </div>
+        </div>
+    </div>
+{% endfor %}

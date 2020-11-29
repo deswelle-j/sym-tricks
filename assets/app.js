@@ -20,11 +20,43 @@ function scrollToAnchor(aid){
     var aTag = $("a[name='"+ aid +"']");
     $('html,body').animate({scrollTop: aTag.offset().top},'slow');
 }
-document.querySelectorAll('a.js-load-more').forEach(function(link){
-  link.addEventListener('click', onClickBtnLoadMore);
+document.querySelectorAll('a.js-load-more-trick').forEach(function(link){
+  link.addEventListener('click', onClickBtnLoadMoreTricks);
 })
 
-function onClickBtnLoadMore(event){
+document.querySelectorAll('a.js-load-more-comment').forEach(function(link){
+    link.addEventListener('click', onClickBtnLoadMoreComments);
+  })
+
+  function onClickBtnLoadMoreComments(event){
+    event.preventDefault();
+        $.ajax({
+            type: "post",
+            url: routeComment ,
+            beforeSend: function () {
+                $('.loader').show();
+            },
+            success: function (response) {
+            //   console.log(response.view)
+                if (response.view.length !== 0) {
+                    $('.comment-item').last().after(response.view);
+                    $('.loader').hide();
+                } else {
+                    $('.loader').hide();
+                }
+            }
+        });
+  
+        index++;
+        if( index >= paginationsComment.length ){
+            document.querySelector('a.js-load-more-comment').style.display = 'none';
+        }else {
+            routeComment = paginationsComment[index];
+        }
+        // console.log(paginationsComment[index]);
+  }
+
+function onClickBtnLoadMoreTricks(event){
   event.preventDefault();
       $.ajax({
           type: "post",
@@ -33,7 +65,7 @@ function onClickBtnLoadMore(event){
               $('.loader').show();
           },
           success: function (response) {
-            console.log(response.view)
+            // console.log(response.view)
               if (response.view.length !== 0) {
                   $('.trick-item').last().after(response.view);
                   $('.loader').hide();
@@ -44,8 +76,13 @@ function onClickBtnLoadMore(event){
       });
 
       index++;
+      if( index >= paginationsTrick.length ){
+        document.querySelector('a.js-load-more-trick').style.display = 'none';
+    }else {
+        routeTrick = paginationsTrick[index];
+    }
       routeTrick = paginationsTrick[index];
-      console.log(routeTrick);
+    //   console.log(routeTrick);
 }
 
 

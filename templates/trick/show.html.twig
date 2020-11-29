@@ -96,9 +96,9 @@
                         {% endif %} 
                         <div class="media-area">
                             {% if comments|length > 0 %}
-                                <h3 class="title text-center">{{comments|length}} Commentaire(s)</h3>
+                                <h3 class="title text-center">{{nbComments}} Commentaire(s)</h3>
                                 {% for comment in comments %}
-                                    <div class="media">
+                                    <div class="media comment-item">
                                         <a class="pull-left" href="#pablo">
                                             <div class="avatar">
                                                 {% if comment.author.avatarPath %}
@@ -118,6 +118,9 @@
                                         </div>
                                     </div>
                                 {% endfor %}
+                                <div class="row text-center pagination">
+                                    <a class="btn btn-lgbtn btn-primary btn-round btn-lg btn-block js-load-more-comment" href="#">Load more</a>
+                                 </div>
                             {% else %}
                              <h3 class="title text-center">Connectez-vous pour commenter</h3>
                             {% endif %}
@@ -128,4 +131,16 @@
         </div>
     </div>
 </div>
+{% endblock %}
+{% block javascripts %}
+<script>
+    let paginationsComment = [
+        {% for i in 2 .. pages %}
+            "{{ path('load_more_comment', {'page': i, 'trickId': trick.id })|escape('js') }}" ,
+        {% endfor %}
+    ];
+    index = 0;
+    let routeComment = paginationsComment[0];
+    {# console.log(paginationsComment); #}
+</script>
 {% endblock %}
