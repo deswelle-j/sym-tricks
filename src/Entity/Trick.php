@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use DateTime;
-use App\Entity\Comment;
 use App\Service\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
@@ -71,7 +70,6 @@ class Trick
     public function __construct()
     {
         $this->images = new ArrayCollection();
-        $this->comments = new ArrayCollection();
         $this->videos = new ArrayCollection();
     }
 
