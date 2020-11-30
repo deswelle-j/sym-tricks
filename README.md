@@ -21,7 +21,7 @@ Enter the following command to install the vendors:
 composer update
 ```
 
-To create the database your edit the .env file
+To create the database, edit the .env file
 
 on the line 32 DATABASE_URL=mysql://root:@127.0.0.1:3306/sym-tricks
 ```bash
