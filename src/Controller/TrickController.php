@@ -10,6 +10,7 @@ use App\Form\TrickType;
 use App\Form\CommentType;
 use App\Service\UploaderHelper;
 use App\Repository\UserRepository;
+use App\Repository\ImageRepository;
 use App\Repository\TrickRepository;
 use App\Repository\CommentRepository;
 use Symfony\Component\Serializer\Serializer;
@@ -17,14 +18,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
 
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
 class TrickController extends AbstractController
 {
@@ -73,7 +73,6 @@ class TrickController extends AbstractController
                 'view' => $this->renderView('trick/tricksLoad.html.twig', [
                         'tricks' => $tricks,
                     ]),
-                    'offset' => 3
                 ]);
                 
     }
@@ -85,12 +84,14 @@ class TrickController extends AbstractController
      * @return Response
      */
 
-    public function trickManagement(Request $request, $slug = false, TrickRepository $repo, UploaderHelper $uploaderHelper)
+    public function trickManagement(Request $request, $slug = false, TrickRepository $repo, ImageRepository $repoImage, UploaderHelper $uploaderHelper)
     {
         if ($slug !== false) {
             $trick = $repo->findOneBySlug($slug);
+            $image = $repoImage->findOneByTrick($trick->getId());
         } else {
             $trick = new Trick();
+            $image = "";
         }
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
@@ -118,6 +119,7 @@ class TrickController extends AbstractController
 
         return $this->render('trick/form.html.twig', [
             'form' => $form->createView(),
+            'image' => $image
         ]);
     }
 
