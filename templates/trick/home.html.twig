@@ -49,7 +49,7 @@
                                         <a class="text-light" href="{{ path('trick_edit', {slug: trick.slug}) }}">
                                             <i class="now-ui-icons ui-2_settings-90"></i>  
                                         </a>
-                                        <a class="text-light" href="{{ path('trick_delete', {id: trick.id, _csrf_token: csrf_token('delete')}) }}">
+                                        <a class="text-light confirmModalLink" id="deleteLink" data-toggle="modal" data-target="#myModal" href="{{ path('trick_delete', {id: trick.id, _csrf_token: csrf_token('delete')}) }}">
                                             <i class="now-ui-icons ui-1_simple-remove"></i>
                                         </a>
                                         {% endif %}
