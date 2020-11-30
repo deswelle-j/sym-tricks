@@ -13,7 +13,13 @@
                 {{ form_start(form) }}
     <div class="wrapper">
         <div class="page-header page-header-small">
-            
+            {% if image|length > 0 %}
+                <div class="page-header-image-detail" data-parallax="true" style="background-image: url({{asset('/uploads/' ~ image.url)}})">
+                </div>
+            {% else %}
+                <div class="page-header-image-detail" data-parallax="true" style="background-image: url({{asset('/assets/freestyle-snowboards-back-grab-1-5f9be0af06385.jpeg')}})">
+                </div>
+            {% endif %}
             <div class="content-center">
                 <div class="row">
                     <div class="col-md-8 ml-auto mr-auto text-center">
