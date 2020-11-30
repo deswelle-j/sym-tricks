@@ -21,12 +21,16 @@ Enter the following command to install the vendors:
 composer update
 ```
 
-To create the database your edit the .env file 
+To create the database your edit the .env file
+
 on the line 32 DATABASE_URL=mysql://root:@127.0.0.1:3306/sym-tricks
-
-Enter your crendentials 
-DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name"
-
+```bash
+Enter your crendentials
+```
+Exemple:
+```bash
+ DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name"
+```
 If you want to use mailer
 Enter your credentials line 24 you can use [mailtrap](https://mailtrap.io/) catch your email (there's a free limited use)
 ```bash
