@@ -10,6 +10,40 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body class="index-page sidebar-collapse">
+        {# <div class="modal hide fade" id="confirmModal">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3>Confirmation de la suppression</h3>
+            </div>
+            <div class="modal-body">
+                <p>Etes-vous sûr de vouloir supprimer cet élément ?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" id="confirmModalNo">Non</a>
+                <a href="#" class="btn btn-primary" id="confirmModalYes">Oui</a>
+            </div>
+        </div> #}
+
+        <!-- Modal -->
+        <div class="modal fade" id="confirmModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Suppression de la figure</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <div class="modal-body">
+                    La suppression sera définitivement. Confirmer vous la suppression ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    <button type="button" id="confirmModalYes" class="btn btn-primary">Je confirme</button>
+                </div>
+                </div>
+            </div>
+        </div>
         
         {% include 'commom/header.html.twig' %}
         {% block body %}{% endblock %}
