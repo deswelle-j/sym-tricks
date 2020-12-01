@@ -164,9 +164,13 @@ class User implements UserInterface
         return $this->hash;
     }
 
-    public function getSalt() {}
+    public function getSalt()
+    {
+    }
 
-    public function eraseCredentials() {}
+    public function eraseCredentials()
+    {
+    }
 
     /**
      * @return Collection|Comment[]

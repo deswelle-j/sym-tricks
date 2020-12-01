@@ -199,7 +199,7 @@ class LoadTrickData extends Fixture implements DependentFixtureInterface
             ],
         ];
         $index = 0;
-        foreach($tricks as $trick) {
+        foreach ($tricks as $trick) {
             $trickObject = new Trick();
             
             $group = $this->getReference($trick['group']);
