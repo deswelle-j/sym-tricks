@@ -19,15 +19,12 @@ class TrickRepository extends ServiceEntityRepository
         parent::__construct($registry, Trick::class);
     }
 
-    public function findOneTrickBySlug($value): ?Trick
+    public function findFirstImageForTrick($value): ?Trick
     {
         return $this->createQueryBuilder('t')
             ->andWhere('t.slug = :val')
             ->setParameter('val', $value)
-            // ->join('t.images', 'i')
-            // ->join('t.videos', 'v')
-            // ->join('t.groupTrick', 'g')
-            // ->select('t.id, t.title, t.description, t.creationDate, t.modification_date')
+            ->join('t.images', 'i')
             ->getQuery()
             ->getOneOrNullResult()
         ;

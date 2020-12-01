@@ -30,10 +30,10 @@ class UserController extends AbstractController
 
         $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()) {
+        if($form->isSubmitted() && $form->isValid()){
             
             $file = $form['avatar']->getData();
-            if ($file) {
+            if($file){
                 $newFilename = $uploaderHelper->uploadImage($file);
                 $user->setAvatarPath($newFilename);
             }
@@ -57,7 +57,6 @@ class UserController extends AbstractController
                 un email de validation va vous être envoyé dans votre boite mail'
             );
         }
-
         return $this->render('user/registration.html.twig', [
             'form' => $form->createView()
         ]);
@@ -72,11 +71,10 @@ class UserController extends AbstractController
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
-
-            if($form->get('email')->getData()) {
+        if($form->isSubmitted() && $form->isValid()){
+            if($form->get('email')->getData()){
                 $email = $form->get('email')->getData();
-                if ($repo->findOneByEmail($email)) {
+                if ($repo->findOneByEmail($email)){
                     $user = $repo->findOneByEmail($email);
                     $user->setToken(bin2hex(random_bytes(60)));
 
@@ -87,7 +85,6 @@ class UserController extends AbstractController
                     $userEvent = new ResetPasswordEvent($user);
         
                     $dispatcher->dispatch($userEvent, ResetPasswordEvent::NAME);
-                    
                 }
                     $this->addFlash(
                         'success',
@@ -95,7 +92,6 @@ class UserController extends AbstractController
                     );
             }
         }
-
         return $this->render('user/passwordForgotten.html.twig', [
             'form' => $form->createView()
         ]);
@@ -111,10 +107,10 @@ class UserController extends AbstractController
         $form = $this->createForm(AccountType::class);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if($form->isSubmitted() && $form->isValid()){
             
             $file = $form['avatar']->getData();
-            if ($file) {
+            if($file){
                 $newFilename = $uploaderHelper->uploadImage($file);
                 $user->setAvatarPath($newFilename);
             }
@@ -148,11 +144,9 @@ class UserController extends AbstractController
         $form = $this->createForm(PasswordUpdateType::class);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
-            
+        if($form->isSubmitted() && $form->isValid()){
             $oldPassword =  $form['oldPassword']->getData();
-            if($encoder->isPasswordValid($user, $oldPassword))
-            {
+            if($encoder->isPasswordValid($user, $oldPassword)){
                 $hash = $encoder->encodePassword($user, $form['hash']->getData());
                 $user->setHash($hash);
 
@@ -171,9 +165,7 @@ class UserController extends AbstractController
                 'warning',
                 'Le mot de passe d\'origine est incorrect'
             );
-
         }
-
         return $this->render('user/passwordUpdate.html.twig', [
             'form' => $form->createView(),
             'user' => $user
@@ -189,12 +181,12 @@ class UserController extends AbstractController
     {
         $user = $repo->findOneById($userId);
 
-        if ($userVerify->tokenVerify($userId, $user, $token)) {
+        if($userVerify->tokenVerify($userId, $user, $token)){
 
             $form = $this->createForm(PasswordResetType::class);
             $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
+            if($form->isSubmitted() && $form->isValid()){
                 $hash = $form->get('hash')->getData();
                 $hash = $encoder->encodePassword($user, $hash);
             
@@ -215,7 +207,7 @@ class UserController extends AbstractController
             return $this->render('user/passwordReset.html.twig', [
                 'form' => $form->createView()
             ]);
-        } else {
+        }else{
             return $this->redirectToRoute('home');
         }
     }
@@ -227,7 +219,7 @@ class UserController extends AbstractController
     {
         $user = $repo->findOneById($userId);
 
-        if ($userVerify->tokenVerify($userId, $user, $token) ) {
+        if($userVerify->tokenVerify($userId, $user, $token)){
             $this->addFlash(
                 'success',
                 'Votre compte a bien été validé'
@@ -240,13 +232,8 @@ class UserController extends AbstractController
             $manager->flush();
 
             return $this->redirectToRoute('home');
-        } else {
+        }else{
             return $this->redirectToRoute('home');
-
-        }
-        
+        }   
     }
-
-
-
 }

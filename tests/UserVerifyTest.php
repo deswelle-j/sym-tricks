@@ -7,7 +7,7 @@ use App\Service\UserVerify;
 use Doctrine\ORM\EntityManager;
 use PHPUnit\Framework\TestCase;
 
-class UserVerifyTest Extends TestCase
+class UserVerifyTest extends TestCase
 {
 
     /**
@@ -50,5 +50,4 @@ class UserVerifyTest Extends TestCase
             ["3", "tokengenerick1204684235", "tokengenerick1204684235"]
         ];
     }
-
 }

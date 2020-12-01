@@ -32,7 +32,7 @@ class LoginFormAuthenticatorTest extends TestCase
         $passwordEncoder = $this->getMockBuilder(UserPasswordEncoderInterface::class)
         ->getMockForAbstractClass();
         
-        $loginFormAuth = new LoginFormAuthenticator($entityManager,  $urlGenerator, $csrfTokenManager,  $passwordEncoder);
+        $loginFormAuth = new LoginFormAuthenticator($entityManager, $urlGenerator, $csrfTokenManager, $passwordEncoder);
         $credentials = [
             'username' => 'usernametest',
             'password' => '1234',
@@ -45,7 +45,6 @@ class LoginFormAuthenticatorTest extends TestCase
         $this->expectException(InvalidCsrfTokenException::class);
 
         $loginFormAuth->getUser($credentials, $userProvider);
-
     }
 
     public function testExceptionThrowWhenUsernameCouldNotBeFound()
@@ -63,7 +62,7 @@ class LoginFormAuthenticatorTest extends TestCase
             ->getMock();
         $passwordEncoder = $this->getMockBuilder(UserPasswordEncoderInterface::class)
             ->getMockForAbstractClass();
-        $loginFormAuth = new LoginFormAuthenticator($entityManager,  $urlGenerator, $csrfTokenManager,  $passwordEncoder);
+        $loginFormAuth = new LoginFormAuthenticator($entityManager, $urlGenerator, $csrfTokenManager, $passwordEncoder);
         $credentials = [
             'username' => 'usernametest',
             'password' => '1234',
@@ -89,8 +88,7 @@ class LoginFormAuthenticatorTest extends TestCase
         $this->expectException(CustomUserMessageAuthenticationException::class);
         $this->expectExceptionMessage('Username could not be found');
 
-        $loginFormAuth->getUser($credentials, $userProvider);
-    
+        $loginFormAuth->getUser($credentials, $userProvider);    
     }
 
     public function testExceptionThrowWhenUsernameIsNotValidate()
@@ -108,7 +106,7 @@ class LoginFormAuthenticatorTest extends TestCase
             ->getMock();
         $passwordEncoder = $this->getMockBuilder(UserPasswordEncoderInterface::class)
             ->getMockForAbstractClass();
-        $loginFormAuth = new LoginFormAuthenticator($entityManager,  $urlGenerator, $csrfTokenManager,  $passwordEncoder);
+        $loginFormAuth = new LoginFormAuthenticator($entityManager, $urlGenerator, $csrfTokenManager, $passwordEncoder);
         $credentials = [
             'username' => 'usernametest',
             'password' => '1234',
@@ -135,7 +133,5 @@ class LoginFormAuthenticatorTest extends TestCase
         $this->expectExceptionMessage('Username is not validate');
 
         $loginFormAuth->getUser($credentials, $userProvider);
-    
     }
-
 }

@@ -5,7 +5,7 @@ namespace App\Tests\Service;
 use App\Service\Slugify;
 use PHPUnit\Framework\TestCase;
 
-class SlugifyTest Extends TestCase
+class SlugifyTest extends TestCase
 {
     /**
      * @dataProvider titleToSlugify
