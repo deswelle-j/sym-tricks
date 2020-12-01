@@ -27,7 +27,13 @@ class ResetPasswordListener
         $user = $resetPasswordEvent->getUser();
         $token = $user->getToken();
         $userId = $user->getId();
-        $url = $this->router->generate('user_reset_password', ['userId' => $userId, 'token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
+        $url = $this->router->generate(
+            'user_reset_password',
+            [
+                'userId' => $userId,
+                'token' => $token
+            ],
+            UrlGeneratorInterface::ABSOLUTE_URL);
         $email = (new TemplatedEmail())
             ->from($this->send_email)
             ->to($user->getEmail())
@@ -40,7 +46,6 @@ class ResetPasswordListener
             ])
             ->text("{$url}")
             ->htmlTemplate('email/passwordForgotten.html.twig');
-
         $this->mailer->send($email);
     }
 }
