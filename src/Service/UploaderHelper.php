@@ -5,7 +5,6 @@ namespace App\Service;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-
 class UploaderHelper
 {
     private $uploadsPath;

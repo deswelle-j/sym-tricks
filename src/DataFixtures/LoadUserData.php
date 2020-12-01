@@ -22,7 +22,6 @@ class LoadUserData extends Fixture
         $this->addReference('user-flaty', $user);
 
         $manager->flush();
-
     }
 
     public function getOrder()

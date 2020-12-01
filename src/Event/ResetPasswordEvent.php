@@ -5,8 +5,8 @@ namespace App\Event;
 use App\Entity\User;
 use Symfony\Contracts\EventDispatcher\Event;
 
-class ResetPasswordEvent extends Event {
-
+class ResetPasswordEvent extends Event
+{
     public const NAME = 'user.reset-password';
     protected $user;
 

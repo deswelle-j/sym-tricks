@@ -136,11 +136,10 @@ class LoadTrickData extends Fixture implements DependentFixtureInterface
             $manager->persist($trickObject);
             $manager->flush();
             $trickName = 'trick-'. $index;
-            $this->setReference($trickName , $trickObject);
+            $this->setReference($trickName, $trickObject);
             
             $index++;
         }
-
     }
 
     public function getDependencies()
