@@ -36,7 +36,7 @@ class TrickController extends AbstractController
         $tricks = $repo->findBy([], [], 10, 0);
 
         $count = count($repo->findAll());
-        $pages = ceil($count / 10); 
+        $pages = ceil($count / 10);
 
 
         return $this->render('trick/home.html.twig', [
@@ -60,7 +60,7 @@ class TrickController extends AbstractController
         $tricks = $serializer->normalize(
             $tricks,
             'json',
-            [AbstractNormalizer::ATTRIBUTES => 
+            [AbstractNormalizer::ATTRIBUTES =>
                 [
                     'id',
                     'title',
@@ -87,10 +87,10 @@ class TrickController extends AbstractController
 
     public function trickManagement(Request $request, TrickRepository $repo, ImageRepository $repoImage, UploaderHelper $uploaderHelper, $slug = false)
     {
-        if ($slug !== false){
+        if ($slug !== false) {
             $trick = $repo->findOneBySlug($slug);
             $image = $repoImage->findOneByTrick($trick->getId());
-        }else{
+        }else {
             $trick = new Trick();
             $image = "";
         }
@@ -99,11 +99,11 @@ class TrickController extends AbstractController
 
         $manager = $this->getDoctrine()->getManager();
 
-        if ($form->isSubmitted() && $form->isValid()){
-            foreach ($form->get('images') as $image){         
+        if ($form->isSubmitted() && $form->isValid()) {
+            foreach ($form->get('images') as $image) {
                 /** @var UploadedFile $file */
                 $file = $image->get('file')->getData();
-                if ($file){
+                if ($file) {
                     $newFilename = $uploaderHelper->uploadImage($file);
 
                     $imageEntity = $image->getData();
@@ -128,7 +128,7 @@ class TrickController extends AbstractController
     {
         $token = new CsrfToken('delete', $request->query->get('_csrf_token'));
 
-        if (!$csrfTokenManager->isTokenValid($token)){
+        if (!$csrfTokenManager->isTokenValid($token)) {
             throw $this->createAccessDeniedException('Token CSRF invalide');
         }
 
@@ -158,7 +158,7 @@ class TrickController extends AbstractController
 
         $manager = $this->getDoctrine()->getManager();
 
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $userId = $this->getUser()->getId();
             $user = new User();
             $user = $userRepo->findOneById($userId);
