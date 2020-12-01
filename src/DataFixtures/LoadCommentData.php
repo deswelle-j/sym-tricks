@@ -29,7 +29,7 @@ class LoadCommentData extends Fixture implements DependentFixtureInterface
             ],
         ];
 
-            foreach($comments as $comment) {
+            foreach ($comments as $comment) {
                 $commentObject = new Comment();
                 
                 $commentObject->setContent($comment['content']);

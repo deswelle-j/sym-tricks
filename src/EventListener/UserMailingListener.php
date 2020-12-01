@@ -48,6 +48,6 @@ class UserMailingListener
             ])
             ->text("{$url}")
             ->htmlTemplate('email/welcome.html.twig');
-            $this->mailer->send($email);      
+            $this->mailer->send($email);
     }
 }
