@@ -31,6 +31,6 @@ class UploaderHelper
     public function deleteFile(string $path)
     {
         $filesystem = new Filesystem();
-        $filesystem->remove($this->uploadsPath.'/'.$path);   
+        $filesystem->remove($this->uploadsPath.'/'.$path);
     }
 }

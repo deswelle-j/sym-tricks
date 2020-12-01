@@ -220,6 +220,6 @@ class TrickController extends AbstractController
                         'comments' => $comments,
                     ]),
                     'offset' => 3
-                ]);         
+                ]);  
     }
 }

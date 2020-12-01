@@ -179,7 +179,7 @@ class UserController extends AbstractController
     {
         $user = $repo->findOneById($userId);
 
-        if ($userVerify->tokenVerify($userId, $user, $token)){
+        if ($userVerify->tokenVerify($userId, $user, $token)) {
             $form = $this->createForm(PasswordResetType::class);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {

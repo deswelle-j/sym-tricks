@@ -20,7 +20,7 @@ class DeleteImageListener
         
         $entity = $args->getObject();
 
-        if(!$entity instanceof Image) {
+        if (!$entity instanceof Image) {
             return;
         } else {
             $url = $entity->getUrl();
