@@ -100,7 +100,7 @@ class TrickController extends AbstractController
         $manager = $this->getDoctrine()->getManager();
 
         if ($form->isSubmitted() && $form->isValid()){
-            foreach ($form->get('images') as $image) {         
+            foreach ($form->get('images') as $image){         
                 /** @var UploadedFile $file */
                 $file = $image->get('file')->getData();
                 if ($file){
@@ -209,7 +209,7 @@ class TrickController extends AbstractController
                     ]
                 ]
         );
-        foreach($comments as $key => $comment){
+        foreach ($comments as $key => $comment){
             $date = new DateTime();
             $date->setTimestamp($comment['creationDate']['timestamp']);
             $comments[$key]['creationDate'] = $date->format('m/d/Y à H:i');

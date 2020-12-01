@@ -71,9 +71,9 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
-            if ($form->get('email')->getData()){
+            if ($form->get('email')->getData()) {
                 $email = $form->get('email')->getData();
-                if ($repo->findOneByEmail($email)){
+                if ($repo->findOneByEmail($email)) {
                     $user = $repo->findOneByEmail($email);
                     $user->setToken(bin2hex(random_bytes(60)));
 
