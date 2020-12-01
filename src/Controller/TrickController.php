@@ -57,7 +57,9 @@ class TrickController extends AbstractController
         $tricks = $repo->findBy([], [], $limit, $offset);
 
         $serializer = new Serializer([new ObjectNormalizer()]);
-        $tricks = $serializer->normalize($tricks, 'json', 
+        $tricks = $serializer->normalize(
+            $tricks,
+            'json',
             [AbstractNormalizer::ATTRIBUTES => 
                 [
                     'id',
@@ -98,8 +100,7 @@ class TrickController extends AbstractController
         $manager = $this->getDoctrine()->getManager();
 
         if($form->isSubmitted() && $form->isValid()){
-            foreach ($form->get('images') as $image) {
-                
+            foreach ($form->get('images') as $image) {         
                 /** @var UploadedFile $file */
                 $file = $image->get('file')->getData();
                 if($file){
@@ -109,10 +110,8 @@ class TrickController extends AbstractController
                     $imageEntity->setUrl($newFilename);
                 }
             }
-
             $manager->persist($trick);
             $manager->flush();
-
             return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug() ]);
         }
 
@@ -169,7 +168,6 @@ class TrickController extends AbstractController
 
             $manager->persist($comment);
             $manager->flush();
-
             return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug() ]);
         }
 
