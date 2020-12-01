@@ -7,3 +7,6 @@ plugins:
 ## other configuration excluded from example...
 exclude_patterns:
 - "vendor"
+- "assets"
+- "public"
+- ".env"
