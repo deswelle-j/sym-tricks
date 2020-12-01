@@ -203,7 +203,7 @@ class UserController extends AbstractController
             return $this->render('user/passwordReset.html.twig', [
                 'form' => $form->createView()
             ]);
-        }else {
+        } else {
             return $this->redirectToRoute('home');
         }
     }
@@ -228,7 +228,7 @@ class UserController extends AbstractController
             $manager->flush();
 
             return $this->redirectToRoute('home');
-        }else {
+        } else {
             return $this->redirectToRoute('home');
         }   
     }

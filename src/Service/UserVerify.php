@@ -11,5 +11,5 @@ class UserVerify
         } else {
             return false;
         }
-    }    
+    }
 }

@@ -33,7 +33,8 @@ class ResetPasswordListener
                 'userId' => $userId,
                 'token' => $token
             ],
-            UrlGeneratorInterface::ABSOLUTE_URL);
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
         $email = (new TemplatedEmail())
             ->from($this->send_email)
             ->to($user->getEmail())

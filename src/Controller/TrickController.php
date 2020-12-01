@@ -90,7 +90,7 @@ class TrickController extends AbstractController
         if ($slug !== false) {
             $trick = $repo->findOneBySlug($slug);
             $image = $repoImage->findOneByTrick($trick->getId());
-        }else {
+        } else {
             $trick = new Trick();
             $image = "";
         }
@@ -200,7 +200,7 @@ class TrickController extends AbstractController
         $comments = $serializer->normalize(
             $comments,
             'json',
-            [AbstractNormalizer::ATTRIBUTES => 
+            [AbstractNormalizer::ATTRIBUTES =>
                 [
                     'id',
                     'content',
