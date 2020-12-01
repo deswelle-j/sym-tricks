@@ -29,7 +29,14 @@ class UserMailingListener
         $user = $registrationEvent->getUser();
         $token = $user->getToken();
         $userId = $user->getId();
-        $url = $this->router->generate('user_token_verify', ['userId' => $userId, 'token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
+        $url = $this->router->generate(
+            'user_token_verify',
+            [
+                'userId' => $userId,
+                'token' => $token
+            ],
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
         $email = (new TemplatedEmail())
             ->from($this->send_email)
             ->to($user->getEmail())
@@ -41,7 +48,6 @@ class UserMailingListener
             ])
             ->text("{$url}")
             ->htmlTemplate('email/welcome.html.twig');
-
             $this->mailer->send($email);      
     }
 }

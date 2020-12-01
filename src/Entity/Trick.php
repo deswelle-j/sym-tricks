@@ -53,12 +53,21 @@ class Trick
     private $groupTrick;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="trick", orphanRemoval=true ,cascade={"persist", "remove"})
+     * @ORM\OneToMany(
+     *  targetEntity="App\Entity\Image",
+     *  mappedBy="trick", orphanRemoval=true,
+     *  cascade={"persist", "remove"}
+     * )
      */
     private $images;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="trick", orphanRemoval=true ,cascade={"persist", "remove"})
+     * @ORM\OneToMany(
+     *  targetEntity="App\Entity\Video",
+     *  mappedBy="trick",
+     *  orphanRemoval=true,
+     *  cascade={"persist", "remove"}
+     * )
      */
     private $videos;
 

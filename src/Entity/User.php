@@ -56,7 +56,10 @@ class User implements UserInterface
     private $hash;
 
     /**
-     * @Assert\EqualTo(propertyPath="hash", message="Le mot de passe n'est pas identique")
+     * @Assert\EqualTo(
+     *  propertyPath="hash",
+     *  message="Le mot de passe n'est pas identique"
+     * )
      */
     public $passwordConfirm;
 

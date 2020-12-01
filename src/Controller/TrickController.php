@@ -85,9 +85,9 @@ class TrickController extends AbstractController
      * @return Response
      */
 
-    public function trickManagement(Request $request, $slug = false, TrickRepository $repo, ImageRepository $repoImage, UploaderHelper $uploaderHelper)
+    public function trickManagement(Request $request, TrickRepository $repo, ImageRepository $repoImage, UploaderHelper $uploaderHelper, $slug = false)
     {
-        if($slug !== false){
+        if ($slug !== false){
             $trick = $repo->findOneBySlug($slug);
             $image = $repoImage->findOneByTrick($trick->getId());
         }else{
@@ -99,11 +99,11 @@ class TrickController extends AbstractController
 
         $manager = $this->getDoctrine()->getManager();
 
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()){
             foreach ($form->get('images') as $image) {         
                 /** @var UploadedFile $file */
                 $file = $image->get('file')->getData();
-                if($file){
+                if ($file){
                     $newFilename = $uploaderHelper->uploadImage($file);
 
                     $imageEntity = $image->getData();
@@ -128,7 +128,7 @@ class TrickController extends AbstractController
     {
         $token = new CsrfToken('delete', $request->query->get('_csrf_token'));
 
-        if(!$csrfTokenManager->isTokenValid($token)){
+        if (!$csrfTokenManager->isTokenValid($token)){
             throw $this->createAccessDeniedException('Token CSRF invalide');
         }
 
@@ -158,7 +158,7 @@ class TrickController extends AbstractController
 
         $manager = $this->getDoctrine()->getManager();
 
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()){
             $userId = $this->getUser()->getId();
             $user = new User();
             $user = $userRepo->findOneById($userId);
@@ -197,7 +197,9 @@ class TrickController extends AbstractController
         $comments = $repo->findByTrick($trickId, [], $limit, $offset);
 
         $serializer = new Serializer([new ObjectNormalizer()]);
-        $comments = $serializer->normalize($comments, 'json', 
+        $comments = $serializer->normalize(
+            $comments,
+            'json',
             [AbstractNormalizer::ATTRIBUTES => 
                 [
                     'id',
