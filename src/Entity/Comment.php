@@ -45,7 +45,7 @@ class Comment
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
-    public function initializeModificationDate()
+    public function initializeCreationDate()
     {
         $date = new DateTime('NOW');
         $this->creationDate = $date;

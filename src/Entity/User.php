@@ -36,6 +36,9 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email(
+     *  message = "Le champ email est invalide."
+     * )
      */
     private $email;
 
