@@ -30,8 +30,7 @@ class UserController extends AbstractController
 
         $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-            
+        if($form->isSubmitted() && $form->isValid()){       
             $file = $form['avatar']->getData();
             if($file){
                 $newFilename = $uploaderHelper->uploadImage($file);
@@ -107,8 +106,7 @@ class UserController extends AbstractController
         $form = $this->createForm(AccountType::class);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
-            
+        if($form->isSubmitted() && $form->isValid()){       
             $file = $form['avatar']->getData();
             if($file){
                 $newFilename = $uploaderHelper->uploadImage($file);
@@ -182,10 +180,8 @@ class UserController extends AbstractController
         $user = $repo->findOneById($userId);
 
         if($userVerify->tokenVerify($userId, $user, $token)){
-
             $form = $this->createForm(PasswordResetType::class);
             $form->handleRequest($request);
-
             if($form->isSubmitted() && $form->isValid()){
                 $hash = $form->get('hash')->getData();
                 $hash = $encoder->encodePassword($user, $hash);
