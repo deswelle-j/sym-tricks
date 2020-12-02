@@ -28,12 +28,20 @@ class Trick
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *  min = 3
+     * )
      */
     private $title;
 
     /**
-     * @ORM\Column(type="text")
-     */
+    * @ORM\Column(type="string", length=255)
+    * @Assert\NotBlank
+    * @Assert\Length(
+    *  min = 3
+    * )
+    */
     private $description;
 
     /**
