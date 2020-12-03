@@ -7,6 +7,7 @@ Community site about snowboard in symfony 4
  * [mysql](https://dev.mysql.com/downloads/installer/)
  * [composer](https://getcomposer.org/doc/00-intro.md)
  * [apache](http://httpd.apache.org/docs/2.4/fr/install.html)
+ * [nodejs](https://nodejs.org/en/) and [npm](https://www.npmjs.com/)
 
 ## Project Installation 
 
@@ -31,6 +32,16 @@ Exemple:
 ```bash
  DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name"
 ```
+
+To compile the css and js you need to run the npm command
+```bash
+ npm run build
+```
+for production file and 
+```bash
+npm run dev
+```
+for dev file
 If you want to use mailer
 Enter your credentials line 24 you can use [mailtrap](https://mailtrap.io/) catch your email (there's a free limited use)
 ```bash
