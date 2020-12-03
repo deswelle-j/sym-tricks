@@ -193,7 +193,7 @@ class TrickController extends AbstractController
         $page = $page -1;
         $offset = ($page * $limit);
 
-        $comments = $repo->findByTrick($trickId, ['creationDate' => 'DESC'], $limit, $offset);
+        $comments = $repo->findByTrick($trickId, [], $limit, $offset);
 
         $serializer = new Serializer([new ObjectNormalizer()]);
         $comments = $serializer->normalize(

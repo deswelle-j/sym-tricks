@@ -1700,5 +1700,9 @@
   }
 
   .card-image .card-video {
-    width: 100%;
+    min-width: 100%;
+  }
+
+  .card-form-group {
+    min-width: 100%;
   }

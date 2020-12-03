@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block _trick_images_entry_widget %}
-    <div class="form-group col-md-6 col-lg-4" id="block_{{id}}">
+    <div class="form-group card-form-group col-md-6 col-lg-4" id="block_{{id}}">
         <div class="">
             <div class="card card-blog">
                 <div class="card-image">
@@ -30,9 +30,9 @@
                         {{ form_errors(form.title, {'attr': {'class': 'trick-card-title'}}) }}
                     </h5>
                     <p class="card-description">
-                        {{ form_label(form.file) }}
+                        {{ form_label(form.file)}}
                         {{ form_errors(form.file) }}
-                        {{ form_widget(form.file, {'attr': {'class': 'trick-card-image'}}) }}
+                        {{ form_widget(form.file, {'attr': {'class': 'trick-card-image '}}) }}
                     </p>
                     <div class="card-footer">
                         <div class="author">                                
