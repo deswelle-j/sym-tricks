@@ -173,7 +173,7 @@ class TrickController extends AbstractController
         $nbComment = $commentRepo->countCommentForTrick($trick->getId());
         $pages = ceil($nbComment/ 10);
 
-        $comments = $commentRepo->findByTrick($trick->getId(), [], 10, 0);
+        $comments = $commentRepo->findByTrick($trick->getId(), ['creationDate' => 'DESC'], 10, 0);
 
         return $this->render('trick/show.html.twig', [
             'trick' => $trick,
@@ -193,7 +193,7 @@ class TrickController extends AbstractController
         $page = $page -1;
         $offset = ($page * $limit);
 
-        $comments = $repo->findByTrick($trickId, [], $limit, $offset);
+        $comments = $repo->findByTrick($trickId, ['creationDate' => 'DESC'], $limit, $offset);
 
         $serializer = new Serializer([new ObjectNormalizer()]);
         $comments = $serializer->normalize(
