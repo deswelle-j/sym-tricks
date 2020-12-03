@@ -109,12 +109,10 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $form['avatar']->getData();
             if ($file) {
+                $uploaderHelper->deleteFile($user->getAvatarPath());
                 $newFilename = $uploaderHelper->uploadImage($file);
                 $user->setAvatarPath($newFilename);
             }
-
-            $hash = $encoder->encodePassword($user, $user->getHash());
-            $user->setHash($hash);
 
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($user);
